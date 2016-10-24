@@ -33,6 +33,7 @@ GEM
       http-cookie (>= 1.0.2, < 2.0)
       mime-types (>= 1.16, < 4.0)
       netrc (~> 0.8)
+    rufus-scheduler (3.2.2)
     thread_safe (0.3.5)
     tzinfo (1.2.2)
       thread_safe (~> 0.1)
@@ -49,6 +50,8 @@ PLATFORMS
 
 DEPENDENCIES
   discordrb!
+  rest-client!
+  rufus-scheduler!
 
 BUNDLED WITH
    1.13.6
