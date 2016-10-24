@@ -63,7 +63,7 @@ end
 bot.command(:exit, help_available: false) do |event|
   if event.user.id == 141793632171720704 then exit
   end
-end 
+end
 
 bot.command(:restart, help_available: false) do |event|
   if event.user.id == 141793632171720704 then
@@ -72,7 +72,7 @@ bot.command(:restart, help_available: false) do |event|
     bot.stop
     exec 'ruby sapphire.rb'
   end
-end 
+end
 
 bot.command( :roll, description: roll_desc) do |event, min = 0, max|
   rand(min.to_i .. max.to_i)
@@ -87,7 +87,7 @@ bot.command(:uptime, description: uptime_desc, help_available: true) do |event|
     "uptime: #{$uptime}min"
   end
   #$uptime > 60 ? "Uptime: " + ($uptime/60).to_s + "hour/s & " + ($uptime%60).to_s + "min" : "Uptime: #{$uptime}min"
-end 
+end
 
 $scheduler.every '1m' do
   $uptime += 1
@@ -95,6 +95,12 @@ end
 
 #Non-Commands
 #----------------------
+
+# Ready event
+bot.ready do
+  START_TIME = Time.now
+end
+
 bot.message(contains: /(sapphire)/i) do |event|
   event.channel.send_message "Do you need me #{event.user.mention}?"
 end
