@@ -30,6 +30,7 @@ zerg_desc = "Posts a cute zergling gif"
 invite_desc = 'Invite url to add the bot to another server'
 cat_desc = 'Posts a random cat'
 roll_desc = "Rolls between 1 and the number specified, or both numbers specified"
+uptime_desc = 'Prints the bots current uptime'
 
 #Commands
 #-----------------------
@@ -77,7 +78,7 @@ bot.command( :roll, description: roll_desc) do |event, min = 0, max|
   rand(min.to_i .. max.to_i)
 end
 
-bot.command(:uptime, description: 'Prints the bots current uptime', help_available: true) do |event|
+bot.command(:uptime, description: uptime_desc, help_available: true) do |event|
   if $uptime > 1440
     'uptime: ' + ($uptime/1440).to_s + 'day/s & ' + ($uptime/60).to_s + 'hour/s & ' + ($uptime%60).to_s + 'min'
   elsif $uptime > 60
@@ -101,6 +102,20 @@ end
 bot.message(contains: /(fuck)|(cunt)|(asshole)|(whore)|(bitch)/i) do |event|
   event.message.delete
   event.channel.send_message "Language!?! #{event.user.mention}"
+end
+
+#testing area -----------------
+bot.command(:connect) do |event|
+  channel = event.user.voice_channel
+
+  next "You're not in any voice channel!" unless channel
+
+  bot.voice_connect(channel)
+  "Connected to voice channel: #{channel.name}"
+end
+bot.command(:play_mp3) do |event|
+  voice_bot = event.voice
+  voice_bot.play_file('./music/Burning Bright.mp3')
 end
 
 bot.run
