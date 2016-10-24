@@ -3,6 +3,7 @@
 require 'discordrb'
 require 'rest-client' #For "cat" command
 require 'time_diff' #For "uptime" command
+$isplaying = 0
 
 module Bot
 token = File.read('token.txt')
@@ -22,7 +23,6 @@ end
 
 #Varible Declarations
 #-----------------------
-isplaying = 0
 picscooldown = 'Please wait %time%s before asking for more pics'
 ping_desc = 'Alive check for the bot'
 zerg_desc = "Posts a cute zergling gif"
@@ -54,8 +54,8 @@ bot.command(:eval, help_available: false) do |event, *code|
   break unless event.user.id == 141793632171720704
   begin
     eval code.join(' ')
-  rescue
-    'Sorry Sir, I ran into an error :cry:'
+  rescue => e
+    "Sorry Sir: ```#{e}``` :cry:"
   end
 end
 
@@ -74,7 +74,7 @@ end
 
 bot.command(:clean) do |event, num|
   event.channel.prune(num.to_i)
-end
+end 
 
 bot.command( :roll, description: roll_desc) do |event, min = 1, max|
   rand(min.to_i .. max.to_i)
@@ -110,12 +110,12 @@ end
 
 #testing area -----------------
 bot.command(:play) do |event, songlink|
-  if isplaying == 1
+  if $isplaying == 1
     event.message.delete
     event.channel.send_message 'Already playing music'
-    break
   end
-  isplaying = 1
+  break unless $isplaying == 0
+  $isplaying = 1
   channel = event.user.voice_channel
   event.channel.send_message "You're not in any voice channel!" unless channel
   bot.voice_connect(channel)
@@ -124,10 +124,11 @@ bot.command(:play) do |event, songlink|
   event.channel.send_message "Playing"
   voice_bot.play_file('./music/s.mp3')
   bot.voices[event.server.id].destroy
-  isplaying = 0
+  $isplaying = 0
   nil
 end
 bot.command(:stop) do |event|
+  $isplaying = 0
   event.voice.stop_playing
   bot.voices[event.server.id].destroy
   nil
