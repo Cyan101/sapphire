@@ -76,12 +76,7 @@ bot.message(contains: /(sapphire)/i) do |event|
   event.channel.send_message "Do you need me #{event.user.mention}?"
 end
 
-bot.message(contains: /(cunt)/i) do |event|
-  event.message.delete
-  event.channel.send_message "Language!?! #{event.user.mention}"
-end
-
-bot.message(contains: /(fuck)/i) do |event|
+bot.message(contains: /(fuck)|(cunt)|(asshole)|(whore)|(bitch)/i) do |event|
   event.message.delete
   event.channel.send_message "Language!?! #{event.user.mention}"
 end
