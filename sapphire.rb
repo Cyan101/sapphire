@@ -67,7 +67,6 @@ end
 bot.command(:restart, help_available: false) do |event|
   if event.user.id == 141793632171720704 then
     event.channel.send_message('Restarting Sir')
-    sleep 1
     bot.stop
     exec 'ruby sapphire.rb'
   end
@@ -118,7 +117,7 @@ bot.command(:play) do |event, songlink|
   end
   isplaying = 1
   channel = event.user.voice_channel
-  next "You're not in any voice channel!" unless channel
+  event.channel.send_message "You're not in any voice channel!" unless channel
   bot.voice_connect(channel)
   voice_bot = event.voice
   system("youtube-dl --no-playlist --max-filesize 50m -o 'music/s.%(ext)s' -x --audio-format mp3 #{songlink}")
