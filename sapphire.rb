@@ -12,7 +12,9 @@ bot = Discordrb::Commands::CommandBot.new token: token, client_id: 2398026187576
 
 #Buckets
 #-----------------------
-bot.bucket :zerg, limit: 2, time_span: 60, delay: 15
+bot.bucket :pictures, limit: 5, time_span: 60, delay: 5
+bot.bucket :ping, limit: 1, time_span: 60
+bot.bucket :invite, limit: 1, time_span: 240
 
 module DiscordCommands; end
 Dir['modules/*.rb'].each { |mod| load mod }
@@ -20,21 +22,29 @@ DiscordCommands.constants.each do |mod|
   bot.include! DiscordCommands.const_get mod
 end
 
+#Varible Declarations
+#-----------------------
+picscooldown = 'Please wait %time%s before asking for more pics'
+ping_desc = 'Alive check for the bot'
+zerg_desc = "Posts a cute zergling gif"
+invite_desc = 'Invite url to add the bot to another server'
+cat_desc = 'Posts a random cat'
+
 #Commands
 #-----------------------
-bot.command( :ping, description: 'Alive check for the bot', help_available: true) do |event|
+bot.command( :ping, bucket: :ping, description: ping_desc, help_available: true) do |event|
     "Pong o/ #{event.user.name}!"
 end
 
-bot.command( :zerg, bucket: :zerg, description: 'Posts a cute zergling gif', help_available: true) do |event|
+bot.command( :zerg, bucket: :pictures, description: zerg_desc, help_available: true,  rate_limit_message: picscooldown) do |event|
     event.channel.send_file File.new('images/zerg.gif')
 end
 
-bot.command( :invite, description: 'Invite url for the bot', help_available: true) do |event|
+bot.command( :invite, bucket: :invite, description: invite_desc, help_available: true) do |event|
     "Invite me to any server with #{bot.invite_url}!"
 end
 
-bot.command( :cat, description: 'Posts a random cat', help_available: true) do |event|
+bot.command( :cat, bucket: :pictures, description: cat_desc, help_available: true, rate_limit_message: picscooldown) do |event|
      catlink = JSON.parse(RestClient.get('http://random.cat/meow'))
     "Nyaaa~! #{catlink['file'].gsub('.jpg','')}"
 end
