@@ -30,6 +30,8 @@ invite_desc = 'Invite url to add the bot to another server'
 cat_desc = 'Posts a random cat'
 roll_desc = "Rolls between 1 and the number specified, or both numbers specified"
 uptime_desc = 'Prints the bots current uptime'
+play_desc = 'Downloads and plays a youtube video (.play <linkhere>)'
+stop_desc = 'Stops the currently playing music'
 
 #Commands
 #-----------------------
@@ -59,21 +61,17 @@ bot.command(:eval, help_available: false) do |event, *code|
   end
 end
 
-bot.command(:exit, help_available: false) do |event|
-  if event.user.id == 141793632171720704 then exit
-  end
-end 
-
 bot.command(:restart, help_available: false) do |event|
   if event.user.id == 141793632171720704 then
     event.channel.send_message('Restarting Sir')
     bot.stop
-    exec 'ruby sapphire.rb'
   end
 end 
 
 bot.command(:clean) do |event, num|
-  event.channel.prune(num.to_i)
+  if event.user.id == 141793632171720704 then
+  event.channel.prune(num.to_i + 1)
+end
 end 
 
 bot.command( :roll, description: roll_desc) do |event, min = 1, max|
@@ -109,28 +107,29 @@ bot.message(contains: /(fuck)|(cunt)|(asshole)|(whore)|(bitch)/i) do |event|
 end
 
 #testing area -----------------
-bot.command(:play) do |event, songlink|
+bot.command(:play, description: play_desc, help_available: true) do |event, songlink|
   if $isplaying == 1
     event.message.delete
-    event.channel.send_message 'Already playing music'
+    event.send_temp('Already playing music', 5)
+    break
   end
-  break unless $isplaying == 0
-  $isplaying = 1
   channel = event.user.voice_channel
-  event.channel.send_message "You're not in any voice channel!" unless channel
-  bot.voice_connect(channel)
-  voice_bot = event.voice
-  system("youtube-dl --no-playlist --max-filesize 50m -o 'music/s.%(ext)s' -x --audio-format mp3 #{songlink}")
-  event.channel.send_message "Playing"
-  voice_bot.play_file('./music/s.mp3')
-  bot.voices[event.server.id].destroy
-  $isplaying = 0
-  nil
+  unless channel.nil?
+    voice_bot = bot.voice_connect(channel)
+    event.send_temp('Downloading...', 7)
+    system("youtube-dl --no-playlist --max-filesize 50m -o 'music/s.%(ext)s' -x --audio-format mp3 #{songlink}")
+    event.respond "Playing"
+    $isplaying = 1
+    voice_bot.play_file('./music/s.mp3')
+    voice_bot.destroy
+    $isplaying = 0
+    break
+  end
+  "You're not in any voice channel!"
 end
-bot.command(:stop) do |event|
-  $isplaying = 0
+bot.command(:stop, description: stop_desc, help_available: true) do |event|
   event.voice.stop_playing
-  bot.voices[event.server.id].destroy
+  $isplaying = 0
   nil
 end
 
