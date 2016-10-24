@@ -55,18 +55,18 @@ end
 
 bot.command(:restart, help_available: false) do |event|
   if event.user.id == 141793632171720704 then
-    event.channel.send_message("Restarting Sir")
+    event.channel.send_message('Restarting Sir')
     sleep 3
     bot.stop
-    exec "ruby sapphire.rb"
+    exec 'ruby sapphire.rb'
   end
 end 
 
 bot.command(:uptime, description: 'Prints the bots current uptime', help_available: true) do |event|
   if $uptime > 1440
-    "uptime: " + ($uptime/1440).to_s + "day/s & " + ($uptime/60).to_s + "hour/s & " + ($uptime%60).to_s + "min"
+    'uptime: ' + ($uptime/1440).to_s + 'day/s & ' + ($uptime/60).to_s + 'hour/s & ' + ($uptime%60).to_s + 'min'
   elsif $uptime > 60
-    "uptime: " + ($uptime/60).to_s + "hour/s & " + ($uptime%60).to_s + "min"
+    'uptime: ' + ($uptime/60).to_s + 'hour/s & ' + ($uptime%60).to_s + 'min'
   else
     "uptime: #{$uptime}min"
   end
