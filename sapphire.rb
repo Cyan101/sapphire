@@ -36,7 +36,7 @@ end
 
 bot.command( :cat, description: 'Posts a random cat', help_available: true) do |event|
      catlink = JSON.parse(RestClient.get('http://random.cat/meow'))
-    "Nyaaa~! #{catlink["file"].gsub('.jpg','')}"
+    "Nyaaa~! #{catlink['file'].gsub('.jpg','')}"
 end
 
 bot.command(:eval, help_available: false) do |event, *code|
