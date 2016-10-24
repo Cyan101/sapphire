@@ -2,9 +2,7 @@
 #-----------------------
 require 'discordrb'
 require 'rest-client' #For "cat" command
-require 'rufus-scheduler' #For "uptime" command
-require 'time_diff'
-$scheduler = Rufus::Scheduler.new
+require 'time_diff' #For "uptime" command
 
 module Bot
 token = File.read('token.txt')
@@ -63,7 +61,7 @@ end
 bot.command(:exit, help_available: false) do |event|
   if event.user.id == 141793632171720704 then exit
   end
-end
+end 
 
 bot.command(:restart, help_available: false) do |event|
   if event.user.id == 141793632171720704 then
@@ -72,15 +70,23 @@ bot.command(:restart, help_available: false) do |event|
     bot.stop
     exec 'ruby sapphire.rb'
   end
+end 
+
+bot.command(:clean) do |event, num|
+  event.channel.prune(num.to_i)
 end
 
-bot.command(:uptime, description: 'Prints the bots current uptime', help_available: true) do |event|
+bot.command( :roll, description: roll_desc) do |event, min = 1, max|
+  rand(min.to_i .. max.to_i)
+end
+
+
+bot.command(:uptime, description: uptime_desc, help_available: true) do |event|
   uptime = Time.diff(Time.now, START_TIME)
   'Uptime: '\
-  "`#{uptime[:day]} days,"\
-  " #{uptime[:hour]} hours,"\
-  " #{uptime[:minute]} minutes,"\
-  " #{uptime[:second]} seconds`"
+  "`#{uptime[:day]}days,"\
+  " #{uptime[:hour]}hours &"\
+  " #{uptime[:minute]}minutes`"
 end
 
 #Non-Commands
@@ -91,6 +97,8 @@ bot.ready do
   START_TIME = Time.now
 end
 
+#Non-Commands
+#----------------------
 bot.message(contains: /(sapphire)/i) do |event|
   event.channel.send_message "Do you need me #{event.user.mention}?"
 end
@@ -103,15 +111,26 @@ end
 #testing area -----------------
 bot.command(:connect) do |event|
   channel = event.user.voice_channel
-
   next "You're not in any voice channel!" unless channel
-
   bot.voice_connect(channel)
-  "Connected to voice channel: #{channel.name}"
+  nil
 end
-bot.command(:play_mp3) do |event|
+bot.command(:play_mp3) do |event, songlink|
   voice_bot = event.voice
-  voice_bot.play_file('./music/Burning Bright.mp3')
+  event.voice.volume = 0.7
+  #voice_bot.play_file('./music/Burning Bright.mp3')
+  #voice_bot.play_file('./rawr.mkv')
+  exec 'rm music.mkv'
+  exec "youtube-dl -o music --no-playlist #{songlink}"
+  sleep 5
+  event.channel.send_message "Playing in 5 seconds"
+  voice_bot.play_file('./music.mkv')
+  bot.voices[event.server.id].destroy
+  nil
+end
+bot.command(:stopmusic) do |event|
+  event.voice.stop_playing
+  nil
 end
 
 bot.run
