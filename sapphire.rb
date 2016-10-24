@@ -3,6 +3,7 @@
 require 'discordrb'
 require 'rest-client' #For "cat" command
 require 'rufus-scheduler' #For "uptime" command
+require 'time_diff'
 $scheduler = Rufus::Scheduler.new
 $uptime = 0
 
@@ -74,19 +75,13 @@ bot.command(:restart, help_available: false) do |event|
   end
 end
 
-bot.command( :roll, description: roll_desc) do |event, min = 0, max|
-  rand(min.to_i .. max.to_i)
-end
-
-bot.command(:uptime, description: uptime_desc, help_available: true) do |event|
-  if $uptime > 1440
-    'uptime: ' + ($uptime/1440).to_s + 'day/s & ' + ($uptime/60).to_s + 'hour/s & ' + ($uptime%60).to_s + 'min'
-  elsif $uptime > 60
-    'uptime: ' + ($uptime/60).to_s + 'hour/s & ' + ($uptime%60).to_s + 'min'
-  else
-    "uptime: #{$uptime}min"
-  end
-  #$uptime > 60 ? "Uptime: " + ($uptime/60).to_s + "hour/s & " + ($uptime%60).to_s + "min" : "Uptime: #{$uptime}min"
+bot.command(:uptime, description: 'Prints the bots current uptime', help_available: true) do |event|
+  uptime = Time.diff(Time.now, START_TIME)
+  'Uptime: '\
+  "`#{uptime[:day]} days,"\
+  " #{uptime[:hour]} hours,"\
+  " #{uptime[:minute]} minutes,"\
+  " #{uptime[:second]} seconds`"
 end
 
 $scheduler.every '1m' do
