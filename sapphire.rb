@@ -3,7 +3,6 @@
 require 'discordrb'
 require 'rest-client' #For "cat" command
 require 'time_diff' #For "uptime" command
-$isplaying = 0
 
 module Bot
 token = File.read('token.txt')
@@ -108,28 +107,24 @@ end
 
 #testing area -----------------
 bot.command(:play, description: play_desc) do |event, songlink|
-  if $isplaying == 1
-    event.message.delete
-    event.send_temp('Already playing music', 5)
+  if !event.voice.nil?
+    event.respond 'Already playing music'
     break
   end
   channel = event.user.voice_channel
   unless channel.nil?
     voice_bot = bot.voice_connect(channel)
     event.send_temp('Downloading...', 7)
-    system("youtube-dl --no-playlist --max-filesize 50m -o 'music/s.%(ext)s' -x --audio-format mp3 #{songlink}")
+    system("youtube-dl --no-playlist --max-filesize 50m -o 'music/#{event.server.id}.%(ext)s' -x --audio-format mp3 #{songlink}")
     event.respond "Playing"
-    $isplaying = 1
-    voice_bot.play_file('./music/s.mp3')
+    voice_bot.play_file("./music/#{event.server.id}.mp3")
     voice_bot.destroy
-    $isplaying = 0
     break
   end
-  "You're not in any voice channel!"
+  event.repond "You're not in any voice channel!"
 end
 bot.command(:stop, description: stop_desc) do |event|
   event.voice.stop_playing
-  $isplaying = 0
   nil
 end
 

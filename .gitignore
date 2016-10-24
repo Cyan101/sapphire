@@ -37,4 +37,4 @@ build/
 
 # Sapphire
 token.txt
-s.mp3
+music/*.mp3
