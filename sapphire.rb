@@ -5,7 +5,6 @@ require 'rest-client' #For "cat" command
 require 'rufus-scheduler' #For "uptime" command
 require 'time_diff'
 $scheduler = Rufus::Scheduler.new
-$uptime = 0
 
 module Bot
 token = File.read('token.txt')
@@ -82,10 +81,6 @@ bot.command(:uptime, description: 'Prints the bots current uptime', help_availab
   " #{uptime[:hour]} hours,"\
   " #{uptime[:minute]} minutes,"\
   " #{uptime[:second]} seconds`"
-end
-
-$scheduler.every '1m' do
-  $uptime += 1
 end
 
 #Non-Commands
