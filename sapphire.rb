@@ -22,6 +22,7 @@ end
 
 #Varible Declarations
 #-----------------------
+isplaying = 0
 picscooldown = 'Please wait %time%s before asking for more pics'
 ping_desc = 'Alive check for the bot'
 zerg_desc = "Posts a cute zergling gif"
@@ -66,7 +67,7 @@ end
 bot.command(:restart, help_available: false) do |event|
   if event.user.id == 141793632171720704 then
     event.channel.send_message('Restarting Sir')
-    sleep 3
+    sleep 1
     bot.stop
     exec 'ruby sapphire.rb'
   end
@@ -109,27 +110,27 @@ bot.message(contains: /(fuck)|(cunt)|(asshole)|(whore)|(bitch)/i) do |event|
 end
 
 #testing area -----------------
-bot.command(:connect) do |event|
+bot.command(:play) do |event, songlink|
+  if isplaying == 1
+    event.message.delete
+    event.channel.send_message 'Already playing music'
+    break
+  end
+  isplaying = 1
   channel = event.user.voice_channel
   next "You're not in any voice channel!" unless channel
   bot.voice_connect(channel)
-  nil
-end
-bot.command(:play_mp3) do |event, songlink|
   voice_bot = event.voice
-  event.voice.volume = 0.7
-  #voice_bot.play_file('./music/Burning Bright.mp3')
-  #voice_bot.play_file('./rawr.mkv')
-  exec 'rm music.mkv'
-  exec "youtube-dl -o music --no-playlist #{songlink}"
-  sleep 5
-  event.channel.send_message "Playing in 5 seconds"
-  voice_bot.play_file('./music.mkv')
+  system("youtube-dl --no-playlist --max-filesize 50m -o 'music/s.%(ext)s' -x --audio-format mp3 #{songlink}")
+  event.channel.send_message "Playing"
+  voice_bot.play_file('./music/s.mp3')
   bot.voices[event.server.id].destroy
+  isplaying = 0
   nil
 end
-bot.command(:stopmusic) do |event|
+bot.command(:stop) do |event|
   event.voice.stop_playing
+  bot.voices[event.server.id].destroy
   nil
 end
 
