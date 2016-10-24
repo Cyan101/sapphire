@@ -35,19 +35,19 @@ stop_desc = 'Stops the currently playing music'
 
 #Commands
 #-----------------------
-bot.command( :ping, bucket: :ping, description: ping_desc, help_available: true) do |event|
+bot.command( :ping, bucket: :ping, description: ping_desc) do |event|
     "Pong o/ #{event.user.name}!"
 end
 
-bot.command( :zerg, bucket: :pictures, description: zerg_desc, help_available: true,  rate_limit_message: picscooldown) do |event|
+bot.command( :zerg, bucket: :pictures, description: zerg_desc,  rate_limit_message: picscooldown) do |event|
     event.channel.send_file File.new('images/zerg.gif')
 end
 
-bot.command( :invite, bucket: :invite, description: invite_desc, help_available: true) do |event|
-    "Invite me to any server with #{bot.invite_url}!"
+bot.command( :invite, bucket: :invite, description: invite_desc) do |event|
+    "Invite me to any server with #{bot.invite_url}"
 end
 
-bot.command( :cat, bucket: :pictures, description: cat_desc, help_available: true, rate_limit_message: picscooldown) do |event|
+bot.command( :cat, bucket: :pictures, description: cat_desc, rate_limit_message: picscooldown) do |event|
      catlink = JSON.parse(RestClient.get('http://random.cat/meow'))
     "Nyaaa~! #{catlink['file'].gsub('.jpg','')}"
 end
@@ -63,12 +63,12 @@ end
 
 bot.command(:restart, help_available: false) do |event|
   if event.user.id == 141793632171720704 then
-    event.channel.send_message('Restarting Sir')
+    event.respond 'Restarting Sir'
     bot.stop
   end
 end 
 
-bot.command(:clean) do |event, num|
+bot.command(:clean, help_available: false) do |event, num|
   if event.user.id == 141793632171720704 then
   event.channel.prune(num.to_i + 1)
 end
@@ -79,7 +79,7 @@ bot.command( :roll, description: roll_desc) do |event, min = 1, max|
 end
 
 
-bot.command(:uptime, description: uptime_desc, help_available: true) do |event|
+bot.command(:uptime, description: uptime_desc) do |event|
   uptime = Time.diff(Time.now, START_TIME)
   'Uptime: '\
   "`#{uptime[:day]}days,"\
@@ -98,16 +98,16 @@ end
 #Non-Commands
 #----------------------
 bot.message(contains: /(sapphire)/i) do |event|
-  event.channel.send_message "Do you need me #{event.user.mention}?"
+  event.respond "Do you need me #{event.user.mention}?"
 end
 
 bot.message(contains: /(fuck)|(cunt)|(asshole)|(whore)|(bitch)/i) do |event|
   event.message.delete
-  event.channel.send_message "Language!?! #{event.user.mention}"
+  event.respond "Language!?! #{event.user.mention}"
 end
 
 #testing area -----------------
-bot.command(:play, description: play_desc, help_available: true) do |event, songlink|
+bot.command(:play, description: play_desc) do |event, songlink|
   if $isplaying == 1
     event.message.delete
     event.send_temp('Already playing music', 5)
@@ -127,7 +127,7 @@ bot.command(:play, description: play_desc, help_available: true) do |event, song
   end
   "You're not in any voice channel!"
 end
-bot.command(:stop, description: stop_desc, help_available: true) do |event|
+bot.command(:stop, description: stop_desc) do |event|
   event.voice.stop_playing
   $isplaying = 0
   nil

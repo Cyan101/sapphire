@@ -2,12 +2,11 @@
 Sapphire is/will be a general purpose "modularised" bot for discord, built with Ruby and using https://github.com/meew0/discordrb
 
 ##Info
-Version = 0.1.0
+Version = 0.1.5
 
 Ruby version 2.2+ required
 
-Audio playback only works on one server as of now, running on another one will overwrite the file (playback will change, but the bot shouldn't
-  have any issues and continue playing)
+Audio playback only works on one server as of now, running on another one will overwrite the file (playback will change, but the bot shouldn't have any issues and continue playing)
 
 ##Install/Guide
 ```
