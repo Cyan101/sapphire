@@ -29,6 +29,7 @@ ping_desc = 'Alive check for the bot'
 zerg_desc = "Posts a cute zergling gif"
 invite_desc = 'Invite url to add the bot to another server'
 cat_desc = 'Posts a random cat'
+roll_desc = "Rolls between 1 and the number specified, or both numbers specified"
 
 #Commands
 #-----------------------
@@ -71,6 +72,10 @@ bot.command(:restart, help_available: false) do |event|
     exec 'ruby sapphire.rb'
   end
 end 
+
+bot.command( :roll, description: roll_desc) do |event, min = 0, max|
+  rand(min.to_i .. max.to_i)
+end
 
 bot.command(:uptime, description: 'Prints the bots current uptime', help_available: true) do |event|
   if $uptime > 1440
