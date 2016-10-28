@@ -11,7 +11,6 @@ module Bot
 
   # Buckets
   #-----------------------
-  bot.bucket :pictures, limit: 5, time_span: 60, delay: 5
   bot.bucket :ping, limit: 1, time_span: 60
   bot.bucket :invite, limit: 1, time_span: 240
 
@@ -23,15 +22,10 @@ module Bot
 
   # Varible Declarations
   #-----------------------
-  picscooldown = 'Please wait %time%s before asking for more pics'
   ping_desc = 'Alive check for the bot'
-  zerg_desc = 'Posts a cute zergling gif'
   invite_desc = 'Invite url to add the bot to another server'
-  cat_desc = 'Posts a random cat'
   roll_desc = 'Rolls between 1 and the number specified, or both numbers specified'
   uptime_desc = 'Prints the bots current uptime'
-  play_desc = 'Downloads and plays a youtube video (.play <linkhere>)'
-  stop_desc = 'Stops the currently playing music'
 
   # Commands
   #-----------------------
@@ -39,18 +33,11 @@ module Bot
     "Pong o/ #{event.user.name}!"
   end
 
-  bot.command(:zerg, bucket: :pictures, description: zerg_desc, rate_limit_message: picscooldown) do |event|
-    event.channel.send_file File.new('images/zerg.gif')
-  end
 
   bot.command(:invite, bucket: :invite, description: invite_desc) do |_event|
     "Invite me to any server with #{bot.invite_url}"
   end
 
-  bot.command(:cat, bucket: :pictures, description: cat_desc, rate_limit_message: picscooldown) do |_event|
-    catlink = JSON.parse(RestClient.get('http://random.cat/meow'))
-    "Nyaaa~! #{catlink['file'].gsub('.jpg', '')}"
-  end
 
   bot.command(:eval, help_available: false) do |event, *code|
     break unless event.user.id == 141_793_632_171_720_704
@@ -87,40 +74,6 @@ module Bot
   # Ready event
   bot.ready do
     START_TIME = Time.now
-  end
-
-  # Non-Commands
-  #----------------------
-  bot.message(contains: /(sapphire)/i) do |event|
-    event.respond "Do you need me #{event.user.mention}?"
-  end
-
-  bot.message(contains: /(fuck)|(cunt)|(asshole)|(whore)|(bitch)/i) do |event|
-    event.message.delete
-    event.respond "Language!?! #{event.user.mention}"
-  end
-
-  # testing area -----------------
-  bot.command(:play, description: play_desc) do |event, songlink|
-    unless event.voice.nil?
-      event.respond 'Already playing music'
-      break
-    end
-    channel = event.user.voice_channel
-    unless channel.nil?
-      voice_bot = bot.voice_connect(channel)
-      event.send_temp('Downloading...', 7)
-      system("youtube-dl --no-playlist --max-filesize 50m -o 'music/#{event.server.id}.%(ext)s' -x --audio-format mp3 #{songlink}")
-      event.respond 'Playing'
-      voice_bot.play_file("./music/#{event.server.id}.mp3")
-      voice_bot.destroy
-      break
-    end
-    event.repond "You're not in any voice channel!"
-  end
-  bot.command(:stop, description: stop_desc) do |event|
-    event.voice.stop_playing
-    nil
   end
 
   bot.run

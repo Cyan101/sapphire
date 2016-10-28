@@ -1,3 +1,4 @@
+=begin -- This is an example
 module Bot
   module DiscordCommands
     # Responds with "Pong!".
@@ -12,3 +13,4 @@ module Bot
     end
   end
 end
+=end
