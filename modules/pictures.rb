@@ -17,6 +17,6 @@ module Bot
         catlink = JSON.parse(RestClient.get('http://random.cat/meow'))
         "Nyaaa~! #{catlink['file'].gsub('.jpg', '')}"
       end
-end
-end
+    end
+  end
 end

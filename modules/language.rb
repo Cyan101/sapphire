@@ -11,6 +11,6 @@ module Bot
         event.message.delete
         event.respond "Language!?! #{event.user.mention}"
       end
-end
-end
+    end
+  end
 end
