@@ -5,6 +5,7 @@ module Bot
     # This used to check if bot is alive
     module Rawr
       extend Discordrb::Commands::CommandContainer
+      extend Discordrb::EventContainer
       rawr_desc = "test stuff"
       command( :rawr, description: rawr_desc, help_available: true) do |event|
         puts "worked"

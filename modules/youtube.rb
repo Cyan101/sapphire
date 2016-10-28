@@ -2,10 +2,10 @@ module Bot
   module DiscordCommands
     module Youtube
       extend Discordrb::Commands::CommandContainer
-      
+
       play_desc = 'Downloads and plays a youtube video (.play <linkhere>)'
       stop_desc = 'Stops the currently playing music'
-      
+
       command(:play, description: play_desc) do |event, songlink|
         unless event.voice.nil?
           event.respond 'Already playing music'

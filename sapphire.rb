@@ -33,11 +33,9 @@ module Bot
     "Pong o/ #{event.user.name}!"
   end
 
-
   bot.command(:invite, bucket: :invite, description: invite_desc) do |_event|
     "Invite me to any server with #{bot.invite_url}"
   end
-
 
   bot.command(:eval, help_available: false) do |event, *code|
     break unless event.user.id == 141_793_632_171_720_704
