@@ -15,9 +15,9 @@ module Bot
         output = output['data']
         output = output['pixiv_id']
         return "Here is the most accurate match http://www.pixiv.net/member_illust.php?mode=medium&illust_id=#{output}"
-      else
+        else
         "Upload an image with the comment `.sauce`"
-      end
+        end
       end
     end
   end

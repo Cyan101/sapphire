@@ -15,7 +15,7 @@ module Bot
 
       command(:cat, bucket: :pictures, description: cat_desc, rate_limit_message: picscooldown) do |_event|
         catlink = JSON.parse(open('http://random.cat/meow').read)
-        #RestClient.get('http://random.cat/meow') also works if you require('rest-client')
+        # RestClient.get('http://random.cat/meow') also works if you require('rest-client')
         "Nyaaa~! #{catlink['file'].gsub('.jpg', '')}"
       end
     end
