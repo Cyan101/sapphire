@@ -1,11 +1,11 @@
 # Bot Setup + Connect
 #-----------------------
 require 'discordrb'
-require 'rest-client' # For "cat" command
+require 'open-uri'
 require 'time_diff' # For "uptime" command
 
 module Bot
-  token = File.read('token.txt')
+  token = File.read('token.txt').strip
   botid = 239_802_618_757_644_288
   bot = Discordrb::Commands::CommandBot.new token: token, client_id: botid, prefix: '.'
 
