@@ -31,7 +31,7 @@ sudo curl -L https://yt-dl.org/downloads/latest/youtube-dl -o /usr/local/bin/you
 sudo chmod a+rx /usr/local/bin/youtube-dl
 ```
 
-Setup the [token.txt](https://discordapp.com/developers/applications/me) and [saucenao.txt (signup and then go to api)](https://saucenao.com/user.php)
+Setup the [token.txt](https://discordapp.com/developers/applications/me) and [saucenao.txt](https://saucenao.com/user.php) (signup and then go to api)
 
 
 
