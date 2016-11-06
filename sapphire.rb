@@ -73,7 +73,7 @@ module Bot
     end
   end
   
-  bot.command(:tada, description: tada_desc)
+  bot.command(:tada, description: tada_desc) do |event|
      ":tada::tada::tada::tada::tada:"
   end
   
