@@ -3,7 +3,7 @@ module Bot
     module Pictures
       extend Discordrb::Commands::CommandContainer
 
-      bucket :pictures, limit: 5, time_span: 60, delay: 5
+      bucket :pictures, limit: 3, time_span: 60, delay: 20
 
       picscooldown = 'Please wait %time%s before asking for more pics'
       zerg_desc = 'Posts a cute zergling gif'
