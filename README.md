@@ -3,7 +3,7 @@ Sapphire is/will be a general purpose "modularized" bot for discord, built with 
 https://github.com/meew0/discordrb gem
 
 ##Info
-Version = 0.5
+Version = 0.7
 
 Ruby version 2.2+ required
 
