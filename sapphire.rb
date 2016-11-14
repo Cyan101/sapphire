@@ -1,5 +1,6 @@
 # Bot Setup + Connect
 #-----------------------
+require 'bundler/setup'
 require 'discordrb'
 require 'open-uri'
 require 'time_diff' # For "uptime" command
