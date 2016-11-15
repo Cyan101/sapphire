@@ -45,7 +45,7 @@ module Bot
     begin
       eval code.join(' ')
     rescue => e
-      "Sorry Sir: ```#{e}``` :cry:"
+      "It didn't work :cry: sorry.... ```#{e}```"
     end
   end
 
