@@ -1,5 +1,6 @@
 # Bot Setup + Connect
 #-----------------------
+require 'bundler/setup'
 require 'discordrb'
 require 'open-uri'
 require 'time_diff' # For "uptime" command
@@ -44,7 +45,7 @@ module Bot
     begin
       eval code.join(' ')
     rescue => e
-      "Sorry Sir: ```#{e}``` :cry:"
+      "It didn't work :cry: sorry.... ```#{e}```"
     end
   end
 

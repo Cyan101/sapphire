@@ -13,7 +13,7 @@ GEM
       rbnacl
       rest-client
       websocket-client-simple (>= 0.3.0)
-    domain_name (0.5.20160826)
+    domain_name (0.5.20161021)
       unf (>= 0.0.5, < 1.0.0)
     event_emitter (0.2.5)
     ffi (1.9.14)
@@ -53,7 +53,6 @@ PLATFORMS
 
 DEPENDENCIES
   discordrb!
-  rest-client!
   rufus-scheduler!
   time_diff!
 
