@@ -1,18 +1,18 @@
 #Sapphire
-Sapphire is/will be a general purpose "modularized" bot for discord, built with Ruby and the
+Sapphire is a general multi-purpose "modularized" bot for discord, built with Ruby and the
 https://github.com/meew0/discordrb gem
 
+![Sapphire](http://i.imgur.com/aUESGl6t.jpg)
+
 ##Info
-Version = 0.7
+Version = 0.8
 
 Ruby version 2.2+ required
-
-Audio playback works on multiple servers, but all modules are loaded and affect all connected servers
 
 ##Install/Guide
 ```
 gem install bundler
-bundler
+bundle
 ```
 Lots of audio stuff is needed for this, depends on your linux system and repo's
 (No help from me for windows/mac users, sorry)
@@ -24,14 +24,13 @@ ffmpeg
 ```
 
 Install https://github.com/rg3/youtube-dl
-(Yes, I am aware there are a few gems but I found working directly with it was so much easier.
-Feel free to change this and send me a PR)
+(Feel free to set this up to work with the Gem and PR me)
 ```
 sudo curl -L https://yt-dl.org/downloads/latest/youtube-dl -o /usr/local/bin/youtube-dl
 sudo chmod a+rx /usr/local/bin/youtube-dl
 ```
 
-Setup the [token.txt](https://discordapp.com/developers/applications/me) and [saucenao.txt](https://saucenao.com/user.php) (signup and then go to api)
+Setup the [token.txt](https://discordapp.com/developers/applications/me) and [saucenao.txt](https://saucenao.com/user.php)
 
 
 
