@@ -37,5 +37,5 @@ build/
 
 # Sapphire
 token.txt
-music/*.mp3
+/music/
 saucenao.txt
