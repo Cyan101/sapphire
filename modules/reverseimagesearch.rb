@@ -4,7 +4,8 @@ module Bot
       extend Discordrb::Commands::CommandContainer
       extend Discordrb::EventContainer
       sauce_desc = "Uses saucenao to reverse image search, run the command for more help"
-      command( :sauce, description: sauce_desc, help_available: true) do |event, messageurl=false|
+      sauce_usage = '.sauce <imageurl> `or on an uploaded image` .sauce '
+      command( :sauce, description: sauce_desc, usage: sauce_usage, help_available: true) do |event, messageurl=false|
         if event.message.attachments[0]&.url
         url = event.message.attachments[0]&.url
         key = File.read('saucenao.txt').strip #same as the bot token, get this from saucenao.com by registering

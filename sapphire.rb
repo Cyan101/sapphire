@@ -29,6 +29,7 @@ module Bot
   roll_desc = 'Rolls between 1 and the number specified, or both numbers specified'
   uptime_desc = 'Prints the bots current uptime'
   tada_desc = 'Celebrates!!!'
+  roll_usage = '.roll <max> `or` .roll <min> <max>'
 
   # Commands
   #-----------------------
@@ -82,7 +83,7 @@ module Bot
     event.channel.prune(num.to_i + 1) if event.user.id == 141_793_632_171_720_704
   end
 
-  bot.command(:roll, description: roll_desc) do |_event, min = 1, max|
+  bot.command(:roll, usage: roll_usage, description: roll_desc) do |_event, min = 1, max|
     rand(min.to_i..max.to_i)
   end
 

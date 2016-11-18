@@ -5,8 +5,9 @@ module Bot
 
       play_desc = 'Downloads and plays a youtube video (.play <linkhere>)'
       stop_desc = 'Stops the currently playing music'
+      yt_usage = '.play <youtube url>'
 
-      command(:play, description: play_desc) do |event, songlink|
+      command(:play, :usage yt_usage, description: play_desc) do |event, songlink|
         unless event.voice.nil?
           event.respond 'Already playing music'
           break
