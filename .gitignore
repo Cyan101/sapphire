@@ -36,6 +36,5 @@ build/
 .rvmrc
 
 # Sapphire
-token.txt
+*.txt
 /music/
-saucenao.txt
