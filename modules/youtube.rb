@@ -12,7 +12,7 @@ module Bot
       BASE_URL = "https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=1&type=video&fields=items%2Fid&key=#{API_KEY}"
 
       command(:play, usage: yt_usage, description: play_desc) do |event, *songlink|
-        unless songlink =~ /((http:|https:)+\/\/youtube\.com|\/\/youtu.be)/i # could also use #match
+        unless songlink =~ /((http:[s]?\/\/)+youtube\.com|youtu.be)/i # could also use #match
           query = URI.encode(songlink.join(' '))
           apijson = open(BASE_URL + "&q=#{query}")
           response = JSON.parse(apijson.read)
