@@ -7,7 +7,7 @@ module Bot
       stop_desc = 'Stops the currently playing music'
       yt_usage = '.play <youtube url>'
 
-      command(:play, :usage yt_usage, description: play_desc) do |event, songlink|
+      command(:play, usage: yt_usage, description: play_desc) do |event, songlink|
         unless event.voice.nil?
           event.respond 'Already playing music'
           break
@@ -22,7 +22,7 @@ module Bot
           voice_bot.destroy
           break
         end
-        event.repond "You're not in any voice channel!"
+        event.respond "You're not in any voice channel!"
       end
       command(:stop, description: stop_desc) do |event|
         event.voice.stop_playing
