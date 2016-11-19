@@ -3,8 +3,8 @@ module Bot
     module GoogleImages
       extend Discordrb::Commands::CommandContainer
       
-      API_KEY = File.readlines('googleimages.txt')[0].chomp
-      CX_KEY = File.readlines('googleimages.txt')[1].chomp
+      API_KEY = File.readlines('googleapi.txt')[0].chomp
+      CX_KEY = File.readlines('googleapi.txt')[1].chomp
       BASE_URL = "https://www.googleapis.com/customsearch/v1?key=#{API_KEY}&cx=#{CX_KEY}&fields=items(link)&searchType=image&num=1"
       
       gimages_desc = 'Searches google images'
