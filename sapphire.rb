@@ -6,7 +6,6 @@ require 'time_diff'
 require_relative 'config.rb'
 
 module Bot
-  
   CONFIG = Config.new('config.yaml')
 
   bot = Discordrb::Commands::CommandBot.new token: CONFIG.bot_key, client_id: CONFIG.bot_id, prefix: '.'
