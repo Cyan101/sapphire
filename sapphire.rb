@@ -3,21 +3,24 @@
 require 'bundler/setup'
 require 'discordrb'
 require 'time_diff'
-#require_relative 'config.rb'
+require_relative 'config.rb'
 
 module Bot
-  bot = Discordrb::Commands::CommandBot.new token: CONFIG.bot-key, client_id: CONFIG.bot-id, prefix: '.'
+  
+  CONFIG = Config.new('config.yaml')
 
-  # Buckets
-  #-----------------------
-  bot.bucket :ping, limit: 1, time_span: 60
-  bot.bucket :invite, limit: 1, time_span: 240
-
+  bot = Discordrb::Commands::CommandBot.new token: CONFIG.bot_key, client_id: CONFIG.bot_id, prefix: '.'
+  
   module DiscordCommands; end
   Dir['modules/*.rb'].each { |mod| load mod }
   DiscordCommands.constants.each do |mod|
     bot.include! DiscordCommands.const_get mod
   end
+
+  # Buckets
+  #-----------------------
+  bot.bucket :ping, limit: 1, time_span: 60
+  bot.bucket :invite, limit: 1, time_span: 240
 
   # Varible Declarations
   #-----------------------
@@ -53,29 +56,25 @@ module Bot
       bot.stop
     end
   end
-  
+
   bot.command(:game, help_available: false) do |event, *game|
-    if event.user.id == CONFIG.owner
-      bot.game=(game.join(' '))
-    end
+    bot.game = game.join(' ') if event.user.id == CONFIG.owner
   end
-  
+
   bot.command(:setname, help_available: false) do |event, name|
-    if event.user.id == CONFIG.owner
-      bot.profile.username=(name)
-    end
+    bot.profile.username = name if event.user.id == CONFIG.owner
   end
-  
+
   bot.command(:setavatar, help_available: false) do |event, url|
     if event.user.id == CONFIG.owner
-      open(url) { |pic| bot.profile.avatar=(pic) }
+      open(url) { |pic| bot.profile.avatar = pic }
     end
   end
-  
-  bot.command(:tada, description: tada_desc) do |event|
-     ":tada::tada::tada::tada::tada:"
+
+  bot.command(:tada, description: tada_desc) do |_event|
+    ':tada::tada::tada::tada::tada:'
   end
-  
+
   bot.command(:clean, help_available: false) do |event, num|
     event.channel.prune(num.to_i + 1) if event.user.id == 141_793_632_171_720_704
   end

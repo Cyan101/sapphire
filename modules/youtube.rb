@@ -11,7 +11,7 @@ module Bot
       stop_desc = 'Stops the currently playing music'
       yt_usage = '.play <youtube url>'
 
-      BASE_URL = "https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=1&type=video&fields=items%2Fid&key=#{CONFIG.googleapi-key}"
+      BASE_URL = "https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=1&type=video&fields=items%2Fid&key=#{CONFIG.googleapi_key}"
 
       command(:play, usage: yt_usage, description: play_desc) do |event, *songlink|
         unless songlink =~ /((http:[s]?\/\/)+youtube\.com|youtu.be)/i # could also use #match

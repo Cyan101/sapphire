@@ -1,6 +1,6 @@
 require 'yaml'
 
-module Bot
+#module Bot
   class Config
     def initialize(file)
       @config = YAML.load_file file
@@ -11,4 +11,4 @@ module Bot
       end
     end
   end
-end
+#end

@@ -10,12 +10,12 @@ module Bot
       command( :sauce, description: sauce_desc, usage: sauce_usage, help_available: true) do |event, messageurl=false|
         if event.message.attachments[0]&.url
         url = event.message.attachments[0]&.url
-        apijson = open("http://saucenao.com/search.php?output_type=2&numres=1&minsim=80&dbmask=8191&api_key=#{CONFIG.saucenao-key}&url=#{url}")
+        apijson = open("http://saucenao.com/search.php?output_type=2&numres=1&minsim=80&dbmask=8191&api_key=#{CONFIG.saucenao_key}&url=#{url}")
         response = JSON.parse(apijson.read)
         output = response['results'][0]['data']['pixiv_id']
         event.channel.send_message("Here is the most accurate match http://www.pixiv.net/member_illust.php?mode=medium&illust_id=#{output}")
       elsif messageurl
-        apijson = open("http://saucenao.com/search.php?output_type=2&numres=1&minsim=80&dbmask=8191&api_key=#{CONFIG.saucenao-key}&url=#{messageurl}")
+        apijson = open("http://saucenao.com/search.php?output_type=2&numres=1&minsim=80&dbmask=8191&api_key=#{CONFIG.saucenao_key}&url=#{messageurl}")
         response = JSON.parse(apijson.read)
         output = response['results'][0]['data']['pixiv_id']
         event.channel.send_message("Here is the most accurate match http://www.pixiv.net/member_illust.php?mode=medium&illust_id=#{output}")

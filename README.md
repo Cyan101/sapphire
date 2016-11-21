@@ -2,10 +2,10 @@
 Sapphire is a general multi-purpose "modularized" bot for discord, built with Ruby and the
 https://github.com/meew0/discordrb gem
 
-![Sapphire](http://i.imgur.com/aUESGl6t.jpg)
+![Sapphire](http://i.imgur.com/dy1krGTt.jpg)
 
 ##Info
-Version = 0.8
+Version = 1.0
 
 Ruby version 2.2+ required
 
@@ -15,7 +15,6 @@ gem install bundler
 bundle
 ```
 Lots of audio stuff is needed for this, depends on your linux system and repo's
-(No help from me for windows/mac users, sorry)
 ```
 python3
 libsodium (python3-nacl and libsodium-dev worked for me)
@@ -32,6 +31,7 @@ sudo chmod a+rx /usr/local/bin/youtube-dl
 
 Setup the [token.txt](https://discordapp.com/developers/applications/me) and [saucenao.txt](https://saucenao.com/user.php)
 
+Into a config.yaml file
 
 
 ##Misc
