@@ -1,4 +1,6 @@
 # frozen_string_literal: true
+require 'open-uri'
+
 module Bot
   module DiscordCommands
     module GoogleImages
@@ -6,7 +8,7 @@ module Bot
 
       API_KEY = File.readlines('googleapi.txt')[0].chomp
       CX_KEY = File.readlines('googleapi.txt')[1].chomp
-      BASE_URL = "https://www.googleapis.com/customsearch/v1?key=#{API_KEY}&cx=#{CX_KEY}&fields=items(link)&searchType=image&num=1"
+      BASE_URL = "https://www.googleapis.com/customsearch/v1?key=#{CONFIG.googleapi-key}&cx=#{CONFIG.search-key}&fields=items(link)&searchType=image&num=1"
 
       gimages_desc = 'Searches google images'
       gimages_usage = '.gimages <what to search>'

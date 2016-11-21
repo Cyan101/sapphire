@@ -2,14 +2,11 @@
 #-----------------------
 require 'bundler/setup'
 require 'discordrb'
-require 'open-uri'
-require 'time_diff' # For "uptime" command
+require 'time_diff'
+#require_relative 'config.rb'
 
 module Bot
-  token = File.read('token.txt').strip
-  botid = 239_802_618_757_644_288
-  owner = 141_793_632_171_720_704
-  bot = Discordrb::Commands::CommandBot.new token: token, client_id: botid, prefix: '.'
+  bot = Discordrb::Commands::CommandBot.new token: CONFIG.bot-key, client_id: CONFIG.bot-id, prefix: '.'
 
   # Buckets
   #-----------------------
@@ -42,7 +39,7 @@ module Bot
   end
 
   bot.command(:eval, help_available: false) do |event, *code|
-    break unless event.user.id == owner
+    break unless event.user.id == CONFIG.owner
     begin
       eval code.join(' ')
     rescue => e
@@ -51,26 +48,26 @@ module Bot
   end
 
   bot.command(:restart, help_available: false) do |event|
-    if event.user.id == owner
+    if event.user.id == CONFIG.owner
       event.respond 'Restarting Sir'
       bot.stop
     end
   end
   
   bot.command(:game, help_available: false) do |event, *game|
-    if event.user.id == owner
+    if event.user.id == CONFIG.owner
       bot.game=(game.join(' '))
     end
   end
   
   bot.command(:setname, help_available: false) do |event, name|
-    if event.user.id == owner
+    if event.user.id == CONFIG.owner
       bot.profile.username=(name)
     end
   end
   
   bot.command(:setavatar, help_available: false) do |event, url|
-    if event.user.id == owner
+    if event.user.id == CONFIG.owner
       open(url) { |pic| bot.profile.avatar=(pic) }
     end
   end

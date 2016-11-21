@@ -1,4 +1,7 @@
 # frozen_string_literal: true
+require 'open-uri'
+
+
 module Bot
   module DiscordCommands
     module Youtube
@@ -8,8 +11,7 @@ module Bot
       stop_desc = 'Stops the currently playing music'
       yt_usage = '.play <youtube url>'
 
-      API_KEY = File.readlines('googleapi.txt')[0].chomp
-      BASE_URL = "https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=1&type=video&fields=items%2Fid&key=#{API_KEY}"
+      BASE_URL = "https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=1&type=video&fields=items%2Fid&key=#{CONFIG.googleapi-key}"
 
       command(:play, usage: yt_usage, description: play_desc) do |event, *songlink|
         unless songlink =~ /((http:[s]?\/\/)+youtube\.com|youtu.be)/i # could also use #match

@@ -36,5 +36,5 @@ build/
 .rvmrc
 
 # Sapphire
-*.txt
+config.yaml
 /music/

@@ -1,3 +1,5 @@
+require 'open-uri'
+
 module Bot
   module DiscordCommands
     module DuelystCards
