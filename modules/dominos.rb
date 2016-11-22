@@ -32,11 +32,9 @@ module Bot
         yaypizza[:ozdiscount][0..5].each do |x|
           rows << [x[:title][0..62] + '...', 'N/A', x[:code]]
         end
-        rows = []
         yaypizza[:ozbargain][0..5].each do |x|
           rows << [x[:title][0..62] + '...', 'N/A', x[:code]]
         end
-        puts Terminal::Table.new(headings: ['Title', 'Success rate', 'Code'], rows: rows)
         event.respond '```' + Terminal::Table.new(headings: ['Title', 'Success rate', 'Code'], rows: rows).to_s + '```'
       end
 
