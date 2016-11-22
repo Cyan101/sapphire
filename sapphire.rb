@@ -75,7 +75,7 @@ module Bot
   end
 
   bot.command(:clean, help_available: false) do |event, num|
-    event.channel.prune(num.to_i + 1) if event.user.id == 141_793_632_171_720_704
+    event.channel.prune(num.to_i + 1) if event.user.id == CONFIG.owner
   end
 
   bot.command(:roll, usage: roll_usage, description: roll_desc) do |_event, min = 1, max|
