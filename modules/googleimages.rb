@@ -10,8 +10,10 @@ module Bot
 
       gimages_desc = 'Searches google images'
       gimages_usage = '.gimages <what to search>'
+      
+      bucket :gimages, limit: 2, time_span: 80, delay: 40
 
-      command(:gimages, description: gimages_desc, help_available: true, usage: gimages_usage) do |event, *search|
+      command(:gimages, bucket: :gimages, description: gimages_desc, help_available: true, usage: gimages_usage) do |event, *search|
         query = URI.encode(search.join(' '))
         apijson = open(BASE_URL + "&q=#{query}&safe=medium")
         response = JSON.parse(apijson.read)
