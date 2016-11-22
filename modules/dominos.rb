@@ -79,11 +79,11 @@ module Bot
         keys = %i(title code)
         ozbargain = dominos.css('.domaincoupons').css('ul').css('li').map do |x|
           keys.zip([
-            x.css('.desc').css('a').text,
-            x.css('.couponcode').css('strong').text
-          ]).to_h
+                     x.css('.desc').css('a').text,
+                     x.css('.couponcode').css('strong').text
+                   ]).to_h
         end
-        #Output Stuff
+        # Output Stuff
         #-------------------------------------------------------
         vouchers = { retailmenot: retailmenot, ozdiscount: ozdiscount, ozbargain: ozbargain }
         file = File.open('pizza.json', 'w') do |f|
