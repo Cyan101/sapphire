@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require 'json'
 require 'nokogiri'
 require 'rest-client'
@@ -8,6 +9,7 @@ module Bot
   module DiscordCommands
     module Dominos
       module_function
+
       extend Discordrb::Commands::CommandContainer
       scheduler = Rufus::Scheduler.new
 
@@ -30,8 +32,8 @@ module Bot
         yaypizza[:ozdiscount][0..5].each do |x|
           rows << [x[:title][0..62] + '...', 'N/A', x[:code]]
         end
-        puts Terminal::Table.new(:headings => ['Title','Success rate', 'Code'], :rows => rows)
-        event.respond '```' + Terminal::Table.new(:headings => ['Title','Success rate', 'Code'], :rows => rows).to_s + '```'
+        puts Terminal::Table.new(headings: ['Title', 'Success rate', 'Code'], rows: rows)
+        event.respond '```' + Terminal::Table.new(headings: ['Title', 'Success rate', 'Code'], rows: rows).to_s + '```'
       end
 
       scheduler.cron '0 6 * * *' do
@@ -73,7 +75,7 @@ module Bot
         file = File.open('pizza.json', 'w') do |f|
           f.write(vouchers.to_json)
         end
-    end
+      end
     end
   end
 end
