@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require 'json'
 require 'nokogiri'
 require 'rest-client'
@@ -8,6 +9,7 @@ module Bot
   module DiscordCommands
     module Dominos
       module_function
+
       extend Discordrb::Commands::CommandContainer
       scheduler = Rufus::Scheduler.new
 
@@ -30,8 +32,12 @@ module Bot
         yaypizza[:ozdiscount][0..5].each do |x|
           rows << [x[:title][0..62] + '...', 'N/A', x[:code]]
         end
-        puts Terminal::Table.new(:headings => ['Title','Success rate', 'Code'], :rows => rows)
-        event.respond '```' + Terminal::Table.new(:headings => ['Title','Success rate', 'Code'], :rows => rows).to_s + '```'
+        rows = []
+        yaypizza[:ozbargain][0..5].each do |x|
+          rows << [x[:title][0..62] + '...', 'N/A', x[:code]]
+        end
+        puts Terminal::Table.new(headings: ['Title', 'Success rate', 'Code'], rows: rows)
+        event.respond '```' + Terminal::Table.new(headings: ['Title', 'Success rate', 'Code'], rows: rows).to_s + '```'
       end
 
       scheduler.cron '0 6 * * *' do
@@ -68,12 +74,22 @@ module Bot
                    ]).to_h
         end
         ozdiscount.sort_by! { |x| x[:title] }.reverse!
+        #-------------------------------------------------------puts '~~~~~~~~~Oz Bargain~~~~~~~~~'
+        dominos = Nokogiri::HTML RestClient.get('https://www.ozbargain.com.au/deals/dominos.com.au')
+        keys = %i(title code)
+        ozbargain = dominos.css('.domaincoupons').css('ul').css('li').map do |x|
+          keys.zip([
+                     x.css('.desc').css('a').text,
+                     x.css('.couponcode').css('strong').text
+                   ]).to_h
+        end
+        # Output Stuff
         #-------------------------------------------------------
-        vouchers = { retailmenot: retailmenot, ozdiscount: ozdiscount }
+        vouchers = { retailmenot: retailmenot, ozdiscount: ozdiscount, ozbargain: ozbargain }
         file = File.open('pizza.json', 'w') do |f|
           f.write(vouchers.to_json)
         end
-    end
+      end
     end
   end
 end
