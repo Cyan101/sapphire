@@ -2,6 +2,7 @@ require 'json'
 require 'nokogiri'
 require 'rest-client'
 require 'rufus-scheduler'
+require 'terminal-table'
 
 module Bot
   module DiscordCommands
@@ -22,15 +23,15 @@ module Bot
       command(:pizza, description: pizza_desc, usage: pizza_usage, help_available: true) do |event|
         file = File.read('pizza.json')
         yaypizza = JSON.parse(file, symbolize_names: true)
-
-        rawr = ''
+        rows = []
         yaypizza[:retailmenot][0..5].each do |x|
-          rawr << "#{x[:title]} | #{x[:success].to_s}% succcess | code: `#{x[:code].to_s}` \n"
+          rows << [x[:title][0..62] + '...', x[:success].to_s + '%', x[:code]]
         end
         yaypizza[:ozdiscount][0..5].each do |x|
-          rawr << "#{x[:title]} | code: `#{x[:code].to_s}` \n"
+          rows << [x[:title][0..62] + '...', 'N/A', x[:code]]
         end
-        event.respond rawr
+        puts Terminal::Table.new(:headings => ['Title','Success rate', 'Code'], :rows => rows)
+        event.respond '```' + Terminal::Table.new(:headings => ['Title','Success rate', 'Code'], :rows => rows).to_s + '```'
       end
 
       scheduler.cron '0 6 * * *' do
