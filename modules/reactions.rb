@@ -34,10 +34,6 @@ module Bot
         event.message.react '❓' if random == 3
       end
 
-      command :alter, help_available: false do |event|
-        event.message.react '🍕'
-      end
-
       command :poll, help_available: true, description: poll_desc, usage: poll_usage do |event, *message|
         reactions = %w(🇦 🇧 🇨 🇩 🇪)
         message = message.join(' ')
