@@ -48,18 +48,13 @@ module Bot
         options = options.map.with_index { |x, i| "#{reactions[i]}. #{x.strip.capitalize}" }
         output = options.join("\n")
         poll = event.respond "Starting poll for: (expires in 120s)\n#{output}"
-        i = 0
-        while i < length
-          poll.react reactions[i]
-          i += 1
+        reactions[0...options.length].each do |r|
+          poll.react r
         end
         sleep 5
         result = ''
-        i = 0
-        while i < length
-          x = reactions[i]
-          result << "#{x} had #{event.channel.message(poll.id).reactions[x].count} vote(s)  "
-          i += 1
+        reactions[0...options.length].each do |x|
+        result << "#{x} had #{event.channel.message(poll.id).reactions[x].count} vote(s)  "
         end
         event.respond result
       end
