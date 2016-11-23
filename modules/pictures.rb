@@ -7,7 +7,7 @@ module Bot
 
       bucket :pictures, limit: 3, time_span: 60, delay: 20
 
-      picscooldown = 'Please wait %time%s before asking for more pics'
+      picscooldown = 'Please wait %time%s before asking for more cute pics'
       zerg_desc = 'Posts a cute zergling gif'
       cat_desc = 'Posts a random cat'
 
