@@ -43,11 +43,9 @@ module Bot
         message = message.join(' ')
         options = message.split('-')
         length = options.length
-        event.respond '5 options is the max' if options.length > 5
-        break if options.length > 5
-        event.respond 'I need at least one option :thinking:' if options.empty?
-        break if options.empty?
-        options = options.each_with_index.map { |x, i| "#{reactions[i]}. #{x.strip.capitalize}" }
+        next event.respond 'I can only count up to 5 options :stuck_out_tongue_closed_eyes:' if options.length > 5
+        next event.respond 'I need at least one option :thinking:' if options.empty?
+        options = options.map.with_index { |x, i| "#{reactions[i]}. #{x.strip.capitalize}" }
         output = options.join("\n")
         poll = event.respond "Starting poll for: (expires in 120s)\n#{output}"
         i = 0
@@ -55,7 +53,7 @@ module Bot
           poll.react reactions[i]
           i += 1
         end
-        sleep 120
+        sleep 5
         result = ''
         i = 0
         while i < length
