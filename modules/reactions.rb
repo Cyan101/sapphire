@@ -1,4 +1,3 @@
-# frozen_string_literal: true
 module Bot
   module DiscordCommands
     module React
@@ -61,7 +60,7 @@ module Bot
         i = 0
         while i < length
           x = reactions[i]
-          result << "#{x} had #{event.channel.message(poll.id).reactions[x].count} vote/s  "
+          result << "#{x} had #{event.channel.message(poll.id).reactions[x].count} vote(s)  "
           i += 1
         end
         event.respond result
