@@ -7,9 +7,9 @@ module Bot
     module Youtube
       extend Discordrb::Commands::CommandContainer
 
-      play_desc = 'Downloads and plays a youtube video (.play <linkhere>)'
+      play_desc = 'Downloads and plays a youtube video'
       stop_desc = 'Stops the currently playing music'
-      yt_usage = "#{CONFIG.prefix}play <youtube url>"
+      yt_usage = "#{CONFIG.prefix}play <youtube url> ` or a search ` #{CONFIG.prefix}play <what to search for>"
 
       BASE_URL = "https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=1&type=video&fields=items%2Fid&key=#{CONFIG.googleapi_key}"
 
