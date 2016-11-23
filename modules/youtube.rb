@@ -9,7 +9,7 @@ module Bot
 
       play_desc = 'Downloads and plays a youtube video (.play <linkhere>)'
       stop_desc = 'Stops the currently playing music'
-      yt_usage = '.play <youtube url>'
+      yt_usage = "#{CONFIG.prefix}play <youtube url>"
 
       BASE_URL = "https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=1&type=video&fields=items%2Fid&key=#{CONFIG.googleapi_key}"
 

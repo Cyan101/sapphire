@@ -6,7 +6,7 @@ module Bot
       extend Discordrb::Commands::CommandContainer
       extend Discordrb::EventContainer
       sauce_desc = "Uses saucenao to reverse image search, run the command for more help"
-      sauce_usage = '.sauce <imageurl> `or on an uploaded image` .sauce '
+      sauce_usage = "sauce <imageurl> `or on an uploaded image` #{CONFIG.prefix}sauce"
       command( :sauce, description: sauce_desc, usage: sauce_usage, help_available: true) do |event, messageurl=false|
         if event.message.attachments[0]&.url
         url = event.message.attachments[0]&.url

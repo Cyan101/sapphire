@@ -5,7 +5,7 @@ module Bot
       extend Discordrb::EventContainer
 
       poll_desc = 'Does a 120s poll, can have up to 5 options seperated with a \'-\''
-      poll_usage = 'poll <option 1> - <option 2> - <option 3>'
+      poll_usage = "#{CONFIG.prefix}poll <option 1> - <option 2> - <option 3>"
 
       command(:waifu, help_available: false) do |event|
         event.message.react '🇦'
@@ -49,13 +49,13 @@ module Bot
         break if options.empty?
         options = options.each_with_index.map { |x, i| "#{reactions[i]}. #{x.strip.capitalize}" }
         output = options.join("\n")
-        poll = event.respond "Starting poll for: (expires in 120s)\n#{output}"
+        poll = event.respond "Starting poll for: (expires in 4min)\n#{output}"
         i = 0
         while i < length
           poll.react reactions[i]
           i += 1
         end
-        sleep 120
+        sleep 240
         result = ''
         i = 0
         while i < length
