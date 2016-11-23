@@ -49,13 +49,13 @@ module Bot
         break if options.empty?
         options = options.each_with_index.map { |x, i| "#{reactions[i]}. #{x.strip.capitalize}" }
         output = options.join("\n")
-        poll = event.respond "Starting poll for: (expires in 4min)\n#{output}"
+        poll = event.respond "Starting poll for: (expires in 120s)\n#{output}"
         i = 0
         while i < length
           poll.react reactions[i]
           i += 1
         end
-        sleep 240
+        sleep 120
         result = ''
         i = 0
         while i < length
