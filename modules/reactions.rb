@@ -4,7 +4,7 @@ module Bot
       extend Discordrb::Commands::CommandContainer
       extend Discordrb::EventContainer
 
-      poll_desc = 'Does a 120s poll, can have up to 5 options seperated with a \'-\''
+      poll_desc = 'Does a poll that ends after 120s, can have up to 5 options seperated with a \'-\''
       poll_usage = "#{CONFIG.prefix}poll <option 1> - <option 2> - <option 3>"
 
       command(:waifu, help_available: false) do |event|
@@ -52,19 +52,24 @@ module Bot
           poll.react r
         end
         sleep 5
+        values = event.channel.message(poll.id).reactions.values
+        winning_score = values.collect(&:count).max
+        winners = values.select { |r| r.count == winning_score if reactions.include? r.name }
         result = ''
-        valuez = event.channel.message(poll.id).reactions.values
-        winning_score = valuez.collect(&:count).max
-        winners = valuez.select { |r| r.count == winning_score }
+        result << 'Options: '
         reactions[0...options.length].each_with_index do |x, i|
-        result << "#{x} `#{options[i].strip.capitalize}` had #{event.channel.message(poll.id).reactions[x].count} vote(s)  "
+          result << "#{x} = `#{options[i].strip.capitalize}`  "
         end
-        event.respond result
-        winner = 'Winner(s):'
+        result << "\n"
+        result << 'Winner(s):'
         winners.each do |x|
-         winner << " #{x.name} with #{x.count} vote(s)"
+          result << " #{x.name} with #{x.count-1} vote(s)"
         end
-        event.respond winner
+        #reactions[0...options.length].each_with_index do |x, i|
+          #result << "#{x} `#{options[i].strip.capitalize}` had #{event.channel.message(poll.id).reactions[x].count} vote(s)  "
+        #end
+        #result << "\n"
+        event.respond result
       end
     end
   end
