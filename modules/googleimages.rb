@@ -9,7 +9,7 @@ module Bot
       BASE_URL = "https://www.googleapis.com/customsearch/v1?key=#{CONFIG.googleapi_key}&cx=#{CONFIG.search_key}&fields=items(link)&searchType=image&num=1"
 
       gimages_desc = 'Searches google images'
-      gimages_usage = '.gimages <what to search>'
+      gimages_usage = "#{CONFIG.prefix}gimages <what to search>"
       
       bucket :gimages, limit: 2, time_span: 80, delay: 40
 

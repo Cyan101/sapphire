@@ -1,3 +1,17 @@
+GIT
+  remote: https://github.com/meew0/discordrb.git
+  revision: 0f953182d7e4fb31fec98e07367590ac6dbf696c
+  specs:
+    discordrb (3.1.1)
+      activesupport
+      discordrb-webhooks
+      opus-ruby
+      rbnacl
+      rest-client
+      websocket-client-simple (>= 0.3.0)
+    discordrb-webhooks (0.1.0)
+      rest-client
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -7,12 +21,6 @@ GEM
       minitest (~> 5.1)
       tzinfo (~> 1.1)
     concurrent-ruby (1.0.2)
-    discordrb (3.1.1)
-      activesupport
-      opus-ruby
-      rbnacl
-      rest-client
-      websocket-client-simple (>= 0.3.0)
     domain_name (0.5.20161021)
       unf (>= 0.0.5, < 1.0.0)
     event_emitter (0.2.5)
