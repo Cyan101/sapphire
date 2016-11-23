@@ -31,7 +31,17 @@ sudo chmod a+rx /usr/local/bin/youtube-dl
 
 Setup the [token.txt](https://discordapp.com/developers/applications/me) and [saucenao.txt](https://saucenao.com/user.php)
 
-Into a config.yaml file
+Into a config.yaml file (see example below)
+```
+---
+  bot_key: M------------------rw
+  bot_id: 23---------88
+  prefix: ','
+  owner: 14----------04
+  googleapi_key: AI------------------8w
+  search_key: 00--------------------l8q
+  saucenao_key: 49------------------1a
+```
 
 
 ##Misc
