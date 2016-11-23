@@ -45,18 +45,26 @@ module Bot
         length = options.length
         next event.respond 'I can only count up to 5 options :stuck_out_tongue_closed_eyes:' if options.length > 5
         next event.respond 'I need at least one option :thinking:' if options.empty?
-        options = options.map.with_index { |x, i| "#{reactions[i]}. #{x.strip.capitalize}" }
-        output = options.join("\n")
+        eachoption = options.map.with_index { |x, i| "#{reactions[i]}. #{x.strip.capitalize}" }
+        output = eachoption.join("\n")
         poll = event.respond "Starting poll for: (expires in 120s)\n#{output}"
         reactions[0...options.length].each do |r|
           poll.react r
         end
         sleep 5
         result = ''
-        reactions[0...options.length].each do |x|
-        result << "#{x} had #{event.channel.message(poll.id).reactions[x].count} vote(s)  "
+        valuez = event.channel.message(poll.id).reactions.values
+        winning_score = valuez.collect(&:count).max
+        winners = valuez.select { |r| r.count == winning_score }
+        reactions[0...options.length].each_with_index do |x, i|
+        result << "#{x} `#{options[i].strip.capitalize}` had #{event.channel.message(poll.id).reactions[x].count} vote(s)  "
         end
         event.respond result
+        winner = 'Winner(s):'
+        winners.each do |x|
+         winner << " #{x.name} with #{x.count} vote(s)"
+        end
+        event.respond winner
       end
     end
   end
