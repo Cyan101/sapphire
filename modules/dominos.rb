@@ -16,7 +16,7 @@ module Bot
       pizza_desc = 'Prints out pizza vouchers (Aussie)'
       pizza_usage = '.pizza'
 
-      command(:update_pizza) do |event|
+      command(:update_pizza, help_available: false) do |event|
         break unless event.user.id == CONFIG.owner
         update_pizza
         return 'done'

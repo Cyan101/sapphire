@@ -8,7 +8,7 @@ require_relative 'config.rb'
 module Bot
   CONFIG = Config.new('config.yaml')
 
-  bot = Discordrb::Commands::CommandBot.new token: CONFIG.bot_key, client_id: CONFIG.bot_id, prefix: '.'
+  bot = Discordrb::Commands::CommandBot.new token: CONFIG.bot_key, client_id: CONFIG.bot_id, prefix: CONFIG.prefix
   
   module DiscordCommands; end
   Dir['modules/*.rb'].each { |mod| load mod }
