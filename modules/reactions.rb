@@ -42,7 +42,6 @@ module Bot
         reactions = %w(🇦 🇧 🇨 🇩 🇪)
         message = message.join(' ')
         options = message.split('-')
-        length = options.length
         next event.respond 'I can only count up to 5 options :stuck_out_tongue_closed_eyes:' if options.length > 5
         next event.respond 'I need at least one option :thinking:' if options.empty?
         eachoption = options.map.with_index { |x, i| "#{reactions[i]}. #{x.strip.capitalize}" }
@@ -51,7 +50,7 @@ module Bot
         reactions[0...options.length].each do |r|
           poll.react r
         end
-        sleep 5
+        sleep 120
         values = event.channel.message(poll.id).reactions.values
         winning_score = values.collect(&:count).max
         winners = values.select { |r| r.count == winning_score if reactions.include? r.name }
