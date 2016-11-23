@@ -20,7 +20,7 @@ module Bot
           response = JSON.parse(apijson.read)
           event.respond 'Nothing found :scream:' if response.empty?
           break if response.empty?
-          ssonglink = 'https://www.youtube.com/watch?v=' + response['items'][0]['id']['videoId'].to_s
+          songlink = 'https://www.youtube.com/watch?v=' + response['items'][0]['id']['videoId'].to_s
         end
         unless event.voice.nil?
           event.respond 'Already playing music'
