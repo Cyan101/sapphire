@@ -45,7 +45,7 @@ module Bot
         next event.respond 'I need at least one option :thinking:' if options.empty?
         eachoption = options.map.with_index { |x, i| "#{reactions[i]}. #{x.strip.capitalize}" }
         output = eachoption.join("\n")
-        poll = event.respond "Starting poll for: (Expires in: #{time}m)\n#{output}"
+        poll = event.respond "Starting poll for: (Expires in: #{time})\n#{output}"
         reactions[0...options.length].each do |r|
           poll.react r
         end
