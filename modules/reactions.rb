@@ -37,8 +37,8 @@ module Bot
       command :poll, help_available: true, description: poll_desc, usage: poll_usage do |event, *message|
         reactions = %w(🇦 🇧 🇨 🇩 🇪)
         time = '2m'
-        next event.respond 'I can only count to 60m :sweat: sorry' unless message[0].strip.match(/^[1-5]\dm|^60m|^\dm/i)
-        time = message.shift if message[0].strip.match(/^[1-5]\dm|^60m|^\dm/i)
+        next event.respond 'I can only count to 60m :sweat: sorry' unless message[0].strip =~ /^[1-5]\dm|^60m|^\dm/i
+        time = message.shift if message[0].strip =~ /^[1-5]\dm|^60m|^\dm/i
         message = message.join(' ')
         options = message.split('-')
         next event.respond 'I can only count up to 5 options :stuck_out_tongue_closed_eyes:' if options.length > 5
@@ -49,7 +49,7 @@ module Bot
         reactions[0...options.length].each do |r|
           poll.react r
         end
-        time = time.to_i*60
+        time = time.to_i * 60
         while time > 0
           sleep 30
           time -= 30
@@ -66,12 +66,12 @@ module Bot
         result << "\n"
         result << 'Winner(s):'
         winners.each do |x|
-          result << " #{x.name} with #{x.count-1} vote(s)"
+          result << " #{x.name} with #{x.count - 1} vote(s)"
         end
-        #reactions[0...options.length].each_with_index do |x, i|
-          #result << "#{x} `#{options[i].strip.capitalize}` had #{event.channel.message(poll.id).reactions[x].count} vote(s)  "
-        #end
-        #result << "\n"
+        # reactions[0...options.length].each_with_index do |x, i|
+        # result << "#{x} `#{options[i].strip.capitalize}` had #{event.channel.message(poll.id).reactions[x].count} vote(s)  "
+        # end
+        # result << "\n"
         event.respond result
       end
     end
