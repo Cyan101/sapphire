@@ -4,8 +4,8 @@ module Bot
       extend Discordrb::Commands::CommandContainer
       extend Discordrb::EventContainer
 
-      poll_desc = 'Does a poll that ends after 120s, can have up to 5 options seperated with a \'-\''
-      poll_usage = "#{CONFIG.prefix}poll <option 1> - <option 2> - <option 3>"
+      poll_desc = 'Does a poll that ends after 2min or the set time, can have up to 5 options seperated with a \'-\''
+      poll_usage = "#{CONFIG.prefix}poll 20m <option 1> - <option 2> - <option 3> ` Time is optional, Default = 2min`"
 
       command(:waifu, help_available: false) do |event|
         event.message.react '🇦'
@@ -36,17 +36,25 @@ module Bot
 
       command :poll, help_available: true, description: poll_desc, usage: poll_usage do |event, *message|
         reactions = %w(🇦 🇧 🇨 🇩 🇪)
+        time = '2m'
+        next event.respond 'I can only count to 60m :sweat: sorry' unless message[0].strip.match(/^[1-5]\dm|^60m|^\dm/i)
+        time = message.shift if message[0].strip.match(/^[1-5]\dm|^60m|^\dm/i)
         message = message.join(' ')
         options = message.split('-')
         next event.respond 'I can only count up to 5 options :stuck_out_tongue_closed_eyes:' if options.length > 5
         next event.respond 'I need at least one option :thinking:' if options.empty?
         eachoption = options.map.with_index { |x, i| "#{reactions[i]}. #{x.strip.capitalize}" }
         output = eachoption.join("\n")
-        poll = event.respond "Starting poll for: (expires in 120s)\n#{output}"
+        poll = event.respond "Starting poll for: (Expires in: #{time}m)\n#{output}"
         reactions[0...options.length].each do |r|
           poll.react r
         end
-        sleep 120
+        time = time.to_i*60
+        while time > 0
+          sleep 30
+          time -= 30
+          poll.edit "Starting poll for: (Remaining time: #{time}s)\n#{output}"
+        end
         values = event.channel.message(poll.id).reactions.values
         winning_score = values.collect(&:count).max
         winners = values.select { |r| r.count == winning_score if reactions.include? r.name }
