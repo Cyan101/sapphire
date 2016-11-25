@@ -22,7 +22,7 @@ module Bot
         return 'done'
       end
 
-      command(:pizza, description: pizza_desc, usage: pizza_usage, help_available: true) do |event|
+      command([:pizza, :vouchers], description: pizza_desc, usage: pizza_usage, help_available: true) do |event|
         file = File.read('pizza.json')
         yaypizza = JSON.parse(file, symbolize_names: true)
         rows = []
