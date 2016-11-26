@@ -12,8 +12,9 @@ module Bot
       gimages_usage = "#{CONFIG.prefix}gimages <what to search>"
       
       bucket :gimages, limit: 2, time_span: 80, delay: 40
-
-      command([:gimages, :search, :gis], bucket: :gimages, description: gimages_desc, help_available: true, usage: gimages_usage) do |event, *search|
+      command([:gimages, :search, :gis],
+                bucket: :gimages, description: gimages_desc, help_available: true,
+                usage: gimages_usage, min_args: 1) do |event, *search|
         query = URI.encode(search.join(' '))
         apijson = open(BASE_URL + "&q=#{query}&safe=medium")
         response = JSON.parse(apijson.read)
