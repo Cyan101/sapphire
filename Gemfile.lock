@@ -57,6 +57,7 @@ GEM
       unf_ext
     unf_ext (0.0.7.2)
     unicode-display_width (1.1.1)
+    vmstat (2.2.1)
     websocket (1.2.3)
     websocket-client-simple (0.3.0)
       event_emitter
@@ -71,6 +72,7 @@ DEPENDENCIES
   rufus-scheduler!
   terminal-table!
   time_diff!
+  vmstat!
 
 BUNDLED WITH
    1.13.6

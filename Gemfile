@@ -4,4 +4,5 @@ source 'https://rubygems.org' do
   gem 'time_diff'
   gem 'terminal-table'
   gem 'nokogiri'
+  gem 'vmstat'
 end
