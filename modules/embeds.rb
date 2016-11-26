@@ -10,9 +10,8 @@ module Bot
 
       command(:info, description: info_desc, help_available: true) do |event|
         sys = Vmstat.snapshot
-        virtual_mem = "`#{(sys.task.virtual_size.to_f / 1000).to_s[0..4]}MB`"
         res_mem = "`#{(sys.task.resident_size.to_f / 1000).to_s[0..4]}MB`"
-        free_mem = "#{Vmstat::memory::free_bytes / 1073000000}.#{Vmstat::memory::free_bytes % 1073000000}"
+        free_mem = "#{sys.memory::free_bytes / 1073000000}.#{sys.memory::free_bytes % 1073000000}"
         cpus = sys.cpus.map do |x|
           (x.system + x.user).to_f / (x.user + x.system + x.idle).to_f
         end
@@ -31,9 +30,8 @@ module Bot
           #e.footer      = { text: '- Created by Cyan', icon_url: event.bot.profile.avatar_url }
           e.add_field     name: 'CPU Cores Usage:', value: all_cpus.join("\n"), inline: true
           e.add_field     name: 'Servers/Users:', value: "**Servers:** #{event.bot.servers.count}\n**Users:** #{event.bot.users.count}", inline: true 
-          e.add_field     name: 'Total Memory:', value: virtual_mem, inline: true 
-          e.add_field     name: 'In-Use Memory:', value: res_mem, inline: true 
           e.add_field     name: 'Free System Memory: ', value: '`' + free_mem[0..3] + 'GB`', inline: true
+          e.add_field     name: 'In-Use Memory:', value: res_mem, inline: true 
           e.add_field     name: 'Invite Link', value: "[Click here to Invite #{event.bot.profile.name} to your server!](#{event.bot.invite_url})", inline: false
         end
       end
