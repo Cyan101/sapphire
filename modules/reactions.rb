@@ -53,7 +53,7 @@ module Bot
         while time > 0
           sleep 30
           time -= 30
-          poll.edit "Starting poll for: (Remaining time: #{time}s)\n#{output}"
+          poll.edit "Starting poll for: (Remaining time: #{time.to_f / 60}m)\n#{output}"
         end
         values = event.channel.message(poll.id).reactions.values
         winning_score = values.collect(&:count).max
