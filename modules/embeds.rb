@@ -30,7 +30,7 @@ module Bot
           #e.image       = { url: 'https://puu.sh/stDbZ.png' }
           #e.footer      = { text: '- Created by Cyan', icon_url: event.bot.profile.avatar_url }
           e.add_field     name: 'CPU Cores Usage:', value: all_cpus.join("\n"), inline: true
-          e.add_field     name: 'Servers/Users:', value: "Servers: #{event.bot.servers.count}\nUsers: #{event.bot.users.count}", inline: true 
+          e.add_field     name: 'Servers/Users:', value: "**Servers:** #{event.bot.servers.count}\n**Users:** #{event.bot.users.count}", inline: true 
           e.add_field     name: 'Total Memory:', value: virtual_mem, inline: true 
           e.add_field     name: 'In-Use Memory:', value: res_mem, inline: true 
           e.add_field     name: 'Free System Memory: ', value: '`' + free_mem[0..3] + 'GB`', inline: true
