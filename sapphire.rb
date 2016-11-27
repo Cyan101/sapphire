@@ -70,7 +70,7 @@ module Bot
     end
   end
 
-  bot.command(:tada, description: tada_desc) do |_event|
+  bot.command(:tada, description: tada_desc) do |event|
     ':tada::tada::tada::tada::tada:'
   end
 
@@ -78,11 +78,11 @@ module Bot
     event.channel.prune(num.to_i + 1) if event.user.id == CONFIG.owner
   end
 
-  bot.command(:roll, usage: roll_usage, description: roll_desc) do |_event, min = 1, max|
+  bot.command(:roll, usage: roll_usage, description: roll_desc, min_args: 1) do |event, min = 1, max|
     rand(min.to_i..max.to_i)
   end
 
-  bot.command(:uptime, description: uptime_desc) do |_event|
+  bot.command(:uptime, description: uptime_desc) do |event|
     uptime = Time.diff(Time.now, START_TIME)
     'Uptime: '\
     "`#{uptime[:day]}days,"\
