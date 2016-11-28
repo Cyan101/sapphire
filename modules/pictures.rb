@@ -8,14 +8,14 @@ module Bot
       bucket :pictures, limit: 3, time_span: 60, delay: 20
       bucket :trash, limit: 1, time_span: 60
 
-      picscooldown = 'Please wait %time%s before asking for more pics'
+      pics_cooldown = 'Please wait %time%s before asking for more pics'
       trash_cooldown = 'Please stop being mean to people for just %time%s'
       zerg_desc = 'Posts a cute zergling gif'
       cat_desc = 'Posts a random cat'
       weout_desc = 'Shows everyone that you are out of here!'
       trash_desc = 'Insults someone :T'
 
-      command(:zerg, bucket: :pictures, description: zerg_desc, rate_limit_message: picscooldown) do |event|
+      command(:zerg, bucket: :pictures, description: zerg_desc, rate_limit_message: pics_cooldown) do |event|
         event.channel.send_file File.new('images/zerg.gif')
       end
       
@@ -25,11 +25,11 @@ module Bot
       end
       
       command([:weout, :outofhere, :weareoutofhere, :fuckthis],
-              bucket: :pictures, description: weout_desc, rate_limit_message: picscooldown) do |event|
+              bucket: :pictures, description: weout_desc, rate_limit_message: pics_cooldown) do |event|
         event.channel.send_file File.new('images/weoutofhere.gif')
       end
 
-      command([:cat, :kitten, :pussy], bucket: :pictures, description: cat_desc, rate_limit_message: picscooldown) do |_event|
+      command([:cat, :kitten, :pussy], bucket: :pictures, description: cat_desc, rate_limit_message: pics_cooldown) do |_event|
         catlink = JSON.parse(open('http://random.cat/meow').read)
         # RestClient.get('http://random.cat/meow') also works if you require('rest-client')
         "Nyaaa~! #{catlink['file'].gsub('.jpg', '')}"
