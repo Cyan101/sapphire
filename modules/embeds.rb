@@ -28,9 +28,12 @@ module Bot
           # e.footer      = { text: '- Created by Cyan', icon_url: event.bot.profile.avatar_url }
           e.add_field name: 'CPU Cores Usage:', value: all_cpus.join("\n"), inline: true
           e.add_field name: 'Servers/Users:', value: "**Servers:** #{event.bot.servers.count}\n**Users:** #{event.bot.users.count}", inline: true
-          e.add_field name: 'Free Server Memory: ', value: "`#{free_mem[0..3]}GB`", inline: true
+          e.add_field name: 'Server\'s inactive Memory: ', value: "`#{free_mem[0..3]}GB`", inline: true
           e.add_field name: "#{event.bot.profile.name} is using:", value: "`#{res_mem[0..4]}MB`", inline: true
-          e.add_field name: 'Invite Link', value: "[Click here to Invite #{event.bot.profile.name} to your server!](#{event.bot.invite_url})", inline: false
+          e.add_field name: 'Version info:',
+                      value: "**Ruby:** `#{RUBY_VERSION}`\n**Discordrb:** `#{Discordrb::VERSION}`\n**Sapphire:** `#{CONFIG.bot_vers}`",
+                      inline: true
+          e.add_field name: 'Invite Link', value: "[Click here to Invite #{event.bot.profile.name} to your server!](#{event.bot.invite_url})", inline: true
         end
       end
     end
