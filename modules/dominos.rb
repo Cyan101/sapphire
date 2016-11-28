@@ -23,17 +23,17 @@ module Bot
       end
 
       command([:pizza, :vouchers], description: pizza_desc, usage: pizza_usage, help_available: true) do |event|
-        file = File.read('pizza.json')
-        yaypizza = JSON.parse(file, symbolize_names: true)
+        File.read('pizza.json') {|f|}
+        pizza_data = JSON.parse(file, symbolize_names: true)
         rows = []
-        yaypizza[:retailmenot][0..5].each do |x|
-          rows << [x[:title][0..62] + '...', x[:success].to_s + '%', x[:code]]
+        pizza_data[:retailmenot][0..5].each do |x|
+          rows << [x[:title][0..62].strip + '...', x[:success].to_s + '%', x[:code]]
         end
-        yaypizza[:ozdiscount][0..5].each do |x|
-          rows << [x[:title][0..62] + '...', 'N/A', x[:code]]
+        pizza_data[:ozdiscount][0..5].each do |x|
+          rows << [x[:title][0..62].strip + '...', 'N/A', x[:code]]
         end
-        yaypizza[:ozbargain][0..5].each do |x|
-          rows << [x[:title][0..62] + '...', 'N/A', x[:code]]
+        pizza_data[:ozbargain][0..5].each do |x|
+          rows << [x[:title][0..62].strip + '...', 'N/A', x[:code]]
         end
         event.respond '```' + Terminal::Table.new(headings: ['Title', 'Success rate', 'Code'], rows: rows).to_s + '```'
       end
@@ -84,9 +84,7 @@ module Bot
         # Output Stuff
         #-------------------------------------------------------
         vouchers = { retailmenot: retailmenot, ozdiscount: ozdiscount, ozbargain: ozbargain }
-        file = File.open('pizza.json', 'w') do |f|
-          f.write(vouchers.to_json)
-        end
+        File.open('pizza.json', 'w') {|f| f.write(vouchers.to_json) }
       end
     end
   end

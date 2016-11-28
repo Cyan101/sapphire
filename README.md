@@ -5,7 +5,7 @@ https://github.com/meew0/discordrb gem
 ![Sapphire](http://i.imgur.com/dy1krGTt.jpg)
 
 ##Info
-Version = 1.1
+Version = 1.2
 
 Ruby version 2.2+ required
 
@@ -36,6 +36,7 @@ Into a config.yaml file (see example below)
 ---
   bot_key: M------------------rw
   bot_id: 23---------88
+  bot_vers: '1.2'
   prefix: ','
   owner: 14----------04
   googleapi_key: AI------------------8w
