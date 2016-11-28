@@ -15,6 +15,8 @@ module Bot
   DiscordCommands.constants.each do |mod|
     bot.include! DiscordCommands.const_get mod
   end
+  
+  puts "Sapphire version: #{CONFIG.bot_vers} loaded and ready to go!"
 
   # Buckets
   #-----------------------
