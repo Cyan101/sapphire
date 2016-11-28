@@ -5,7 +5,7 @@ module Bot
       extend Discordrb::EventContainer
 
       poll_desc = 'Does a poll that ends after 2min or the set time, can have up to 5 options seperated with a \'-\''
-      poll_usage = "#{CONFIG.prefix}poll 20m <option 1> - <option 2>` Time is optional (from 1m to 60m, don't forget the 'm'), Default = 2m`"
+      poll_usage = "#{CONFIG.prefix}poll 20min <option 1> - <option 2>` (from 1min to 60min don't forget the 'min')`"
 
       command :newtada, help_available: false do |event|
         event.message.react '🎉'
@@ -29,7 +29,7 @@ module Bot
       command :poll, help_available: true, description: poll_desc, usage: poll_usage, min_args: 1 do |event, *message|
         reactions = %w(🇦 🇧 🇨 🇩 🇪)
         time = '2m'
-        next event.respond 'I can only count to 60m :sweat: sorry' unless message[0].strip =~ /^[1-5]\dm|^60m|^\dm/i
+        next event.respond 'I can only count to 60min :sweat: sorry' unless message[0].strip =~ /^[1-5]\dm|^60m|^\dm/i
         time = message.shift if message[0].strip =~ /^[1-5]\dm|^60m|^\dm/i
         message = message.join(' ')
         options = message.split('-')
