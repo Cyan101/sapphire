@@ -7,14 +7,6 @@ module Bot
       poll_desc = 'Does a poll that ends after 2min or the set time, can have up to 5 options seperated with a \'-\''
       poll_usage = "#{CONFIG.prefix}poll 20m <option 1> - <option 2>` Time is optional (from 1m to 60m, don't forget the 'm'), Default = 2m`"
 
-      command(:waifu, help_available: false) do |event|
-        event.message.react '🇦'
-        event.message.react '🇱'
-        event.message.react '🇹'
-        event.message.react '🇪'
-        event.message.react '🇷'
-      end
-
       command :newtada, help_available: false do |event|
         event.message.react '🎉'
       end
