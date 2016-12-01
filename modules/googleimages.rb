@@ -19,8 +19,8 @@ module Bot
         query = URI.encode(search.join(' '))
         apijson = open(BASE_URL + "&q=#{query}&safe=medium")
         response = JSON.parse(apijson.read)
-        event.respond 'Nothing found :scream:' if response.empty?
-        event.respond (response['items'][0]['link'])
+        next 'Nothing found :scream:' if response.empty?
+        (response['items'][0]['link'])
       end
     end
   end
