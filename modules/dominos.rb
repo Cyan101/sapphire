@@ -19,7 +19,7 @@ module Bot
       command(:update_pizza, help_available: false) do |event|
         break unless event.user.id == CONFIG.owner
         update_pizza
-        return 'done'
+        'done'
       end
 
       command([:pizza, :vouchers], description: pizza_desc, usage: pizza_usage, help_available: true) do |event|
