@@ -9,13 +9,13 @@ module Bot
   CONFIG = Config.new('config.yaml')
 
   bot = Discordrb::Commands::CommandBot.new token: CONFIG.bot_key, client_id: CONFIG.bot_id, prefix: CONFIG.prefix
-  
+
   module DiscordCommands; end
   Dir['modules/*.rb'].each { |mod| load mod }
   DiscordCommands.constants.each do |mod|
     bot.include! DiscordCommands.const_get mod
   end
-  
+
   puts "Sapphire version: #{CONFIG.bot_vers} loaded and ready to go!"
 
   # Buckets
@@ -46,6 +46,16 @@ module Bot
     break unless event.user.id == CONFIG.owner
     begin
       eval code.join(' ')
+    rescue => e
+      "It didn't work :cry: sorry.... ```#{e}```"
+    end
+  end
+
+  bot.command([:cr, :crystal], help_available: false) do |event, *code|
+    break unless event.user.id == CONFIG.owner
+    begin
+      puts crystal_code = "crystal eval '#{code.join(' ')}'"
+      `#{crystal_code}`
     rescue => e
       "It didn't work :cry: sorry.... ```#{e}```"
     end
