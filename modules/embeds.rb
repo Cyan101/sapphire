@@ -17,9 +17,9 @@ module Bot
         end
         all_cpus = cpus.map.with_index { |x, y| "**#{y + 1}.** #{x.to_s[0..3]}%" }
         event.channel.send_embed do |e|
-          e.author = {name: event.bot.profile.name, url: 'http://github.com/cyan101/sapphire', icon_url: event.bot.profile.avatar_url}
+          e.author = { name: event.bot.profile.name, url: 'http://github.com/cyan101/sapphire', icon_url: event.bot.profile.avatar_url }
           e.color = '3498db'
-          e.thumbnail = {url: event.bot.profile.avatar_url}
+          e.thumbnail = { url: event.bot.profile.avatar_url }
           # e.title = 'System report'
           # e.description = 'Sapphire system information report'
           # e.url         = 'http://github.com/cyan101'
@@ -33,7 +33,8 @@ module Bot
           e.add_field name: 'Version info:',
                       value: "**Ruby:** `#{RUBY_VERSION}`\n**Discordrb:** `#{Discordrb::VERSION}`\n**Sapphire:** `#{CONFIG.bot_vers}`",
                       inline: true
-          e.add_field name: 'Invite Link', value: "[Click here to Invite #{event.bot.profile.name} to your server!](#{event.bot.invite_url})", inline: true
+          e.add_field name: 'Invite Link',
+                      value: "[Click here to Invite #{event.bot.profile.name} to your server!](#{event.bot.invite_url})", inline: true
         end
       end
     end
