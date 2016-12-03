@@ -31,7 +31,7 @@ module Bot
         event.channel.send_file File.new('images/weoutofhere.gif')
       end
 
-      command([:pewpew, :pewpewpew, :attack],
+      command([:pew, :pewpew, :pewpewpew, :attack],
               bucket: :pictures, description: pew_desc, rate_limit_message: pics_cooldown) do |event|
         event.channel.send_file File.new('images/pewpewpew.gif')
       end
