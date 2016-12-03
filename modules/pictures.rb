@@ -11,6 +11,7 @@ module Bot
       zerg_desc = 'Posts a cute zergling gif'
       trash_desc = 'Insults someone :T'
       weout_desc = 'Shows everyone that you are out of here!'
+      pew_desc = 'Fires a volley of energy attacks'
       cat_desc = 'Posts a random cat'
 
       pics_cooldown = 'Please wait %time%s before asking for more pics'
@@ -28,6 +29,11 @@ module Bot
       command([:weout, :outofhere, :weareoutofhere, :fuckthis],
               bucket: :pictures, description: weout_desc, rate_limit_message: pics_cooldown) do |event|
         event.channel.send_file File.new('images/weoutofhere.gif')
+      end
+
+      command([:pewpew, :pewpewpew, :attack],
+              bucket: :pictures, description: pew_desc, rate_limit_message: pics_cooldown) do |event|
+        event.channel.send_file File.new('images/pewpewpew.gif')
       end
 
       command([:cat, :kitten, :pussy], bucket: :pictures, description: cat_desc, rate_limit_message: pics_cooldown) do |_event|
