@@ -13,8 +13,9 @@ module Bot
       zerg_desc = 'Posts a cute zergling gif'
       trash_desc = 'Insults someone :T'
       weout_desc = 'Shows everyone that you are out of here!'
-      pew_desc = 'Fires a volley of energy attacks'
+      pew_desc = 'Fires a volley of energy attacks at someone with a custom message'
       cat_desc = 'Posts a random cat'
+      pew_usage = "#{CONFIG.prefix}pew @someone your message here"
 
       pics_cooldown = 'Please wait %time%s before asking for more pics'
       trash_cooldown = 'Please stop being mean to people for just %time%s'
