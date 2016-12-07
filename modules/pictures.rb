@@ -40,7 +40,8 @@ module Bot
         avatarurl = event.message.mentions[0].avatar_url
         id = event.message.mentions[0].id
         giflist = Magick::ImageList.new('images/pewpewpew.gif')
-        open("/tmp/#{id}.jpg", 'wb') do |file|
+        `mkdir /tmp/SapphireBot`
+        open("/tmp/SapphireBot/#{id}.jpg", 'wb') do |file|
           file << open(avatarurl).read
         end
         avatar = Magick::Image.read("/tmp/SapphireBot/#{id}.jpg").first
