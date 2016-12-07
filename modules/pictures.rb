@@ -36,7 +36,14 @@ module Bot
       command([:pew, :pewpew, :pewpewpew, :attack],
               bucket: :trash, description: pew_desc, min_args: 2,
               rate_limit_message: trash_cooldown, usage: pew_usage) do |event, *text|
+        avatarurl = event.message.mentions[0].avatar_url
+        id = event.message.mentions[0].id
         giflist = Magick::ImageList.new('images/pewpewpew.gif')
+        open("/tmp/#{id}.jpg", 'wb') do |file|
+          file << open(avatarurl).read
+        end
+        avatar = Magick::Image.read("/tmp/SapphireBot/#{id}.jpg").first
+        message = text.each_with_index { |x, y| text.delete_at(y) if x.include?(id.to_s) }
         drawmessage = Draw.new  {
             self.font_family = 'arial.ttf'
             self.fill = 'black'
@@ -46,6 +53,7 @@ module Bot
             self.gravity = NorthGravity
         }
         giflist.each do |image|
+          image.composite!(avatar, NorthWestGravity, 2, 86, OverCompositeOp)
           drawmessage.annotate(image, 20, 20, 270, 260, message.join(' '))
         end
         giflist.write("/tmp/SapphireBot/#{id}.gif")
