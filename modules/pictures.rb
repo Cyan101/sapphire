@@ -37,6 +37,7 @@ module Bot
       command([:pew, :pewpew, :pewpewpew, :attack],
               bucket: :trash, description: pew_desc, min_args: 2,
               rate_limit_message: trash_cooldown, usage: pew_usage) do |event, *text|
+        next event.respond 'No one was mentioned :/' if event.message.mentions.empty?
         avatarurl = event.message.mentions[0].avatar_url
         id = event.message.mentions[0].id
         giflist = Magick::ImageList.new('images/pewpewpew.gif')
