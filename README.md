@@ -5,7 +5,7 @@ https://github.com/meew0/discordrb gem
 ![Sapphire](http://i.imgur.com/dy1krGTt.jpg)
 
 ##Info
-Version = 1.2.1
+Version = 1.3
 
 Ruby version 2.2+ required
 
