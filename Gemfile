@@ -5,4 +5,5 @@ source 'https://rubygems.org' do
   gem 'terminal-table'
   gem 'nokogiri'
   gem 'vmstat'
+  gem 'rmagick'
 end

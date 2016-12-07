@@ -1,4 +1,6 @@
 require 'open-uri'
+require 'rmagick'
+include Magick
 
 module Bot
   module DiscordCommands
@@ -32,8 +34,22 @@ module Bot
       end
 
       command([:pew, :pewpew, :pewpewpew, :attack],
-              bucket: :pictures, description: pew_desc, rate_limit_message: pics_cooldown) do |event|
-        event.channel.send_file File.new('images/pewpewpew.gif')
+              bucket: :trash, description: pew_desc, min_args: 2,
+              rate_limit_message: trash_cooldown, usage: pew_usage) do |event, *text|
+        giflist = Magick::ImageList.new('images/pewpewpew.gif')
+        drawmessage = Draw.new  {
+            self.font_family = 'arial.ttf'
+            self.fill = 'black'
+            self.stroke = 'transparent'
+            self.pointsize = 32
+            self.font_weight = BoldWeight
+            self.gravity = NorthGravity
+        }
+        giflist.each do |image|
+          drawmessage.annotate(image, 20, 20, 270, 260, message.join(' '))
+        end
+        giflist.write("/tmp/SapphireBot/#{id}.gif")
+        event.channel.send_file File.new("/tmp/SapphireBot/#{id}.gif")
       end
 
       command([:cat, :kitten, :pussy], bucket: :pictures, description: cat_desc, rate_limit_message: pics_cooldown) do |_event|
