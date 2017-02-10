@@ -40,6 +40,7 @@ module Bot
         next event.respond 'No one was mentioned :/' if event.message.mentions.empty?
         avatarurl = event.message.mentions[0].avatar_url
         id = event.message.mentions[0].id
+        event.channel.start_typing
         giflist = Magick::ImageList.new('images/pewpewpew.gif')
         `mkdir /tmp/SapphireBot`
         open("/tmp/SapphireBot/#{id}.jpg", 'wb') do |file|
