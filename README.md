@@ -1,15 +1,15 @@
-#Sapphire
+# Sapphire
 Sapphire is a general multi-purpose "modularized" bot for discord, built with Ruby and the
 https://github.com/meew0/discordrb gem
 
 ![Sapphire](http://i.imgur.com/dy1krGTt.jpg)
 
-##Info
+## Info
 Version = 1.3
 
 Ruby version 2.2+ required
 
-##Install/Guide
+## Install/Guide
 ```
 gem install bundler
 bundle
@@ -45,5 +45,5 @@ Into a config.yaml file (see example below)
 ```
 
 
-##Misc
+## Misc
 MIT License 2016 Jos Spencer
